@@ -151,7 +151,7 @@ class Flow
     {
         $compile = $this->removeComments($this->curView());
         $compile = $this->removePhpTags($compile);
-
+//var_dump($this->tokens($compile));die;
         foreach ($this->tokens($compile) as $tokenName => $tokens)
         {
             $compile = str_replace(

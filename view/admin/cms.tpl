@@ -3,9 +3,16 @@
     <head>
         <?php echo $title; ?>
         {*<title>{$title|_}</title>*}
+        {assign var=name value="Bob"}
+        {assign names array("Bob", "Max")}
         <title>{$title|default:'Not title'}</title>
         <script src="/js/helper-{$id}.js"></script>
         <script src='/js/helper-{$id}.js'></script>
+        <script>
+            'use strict';
+
+            var storage = {$storage|'json.encode'};
+        </script>
     </head>
     <body class="{$classBody}">
 

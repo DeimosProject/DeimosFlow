@@ -6,14 +6,14 @@ trait Tokenizer
 {
 
     /**
-     * @var bool
+     * @var int
      */
-    protected $isBrace;
+    protected $brace;
 
     /**
-     * @var bool
+     * @var int
      */
-    protected $isComment;
+    protected $comment;
 
     /**
      * @var int
@@ -50,8 +50,8 @@ trait Tokenizer
     {
         $this->commands        = [];
         $this->commandIterator = -1;
-        $this->isBrace         = false;
-        $this->isComment       = false;
+        $this->brace           = 0;
+        $this->comment         = 0;
 
         foreach ($this->parseText($source) as $token)
         {
@@ -62,26 +62,26 @@ trait Tokenizer
                 list ($id, $text) = $token;
             }
 
-            if ($this->isComment)
+            if ($this->comment)
             {
                 if ($text === '*')
                 {
-                    $this->isComment = false;
+                    $this->comment--;
                 }
                 continue;
             }
 
             if ($text === '}')
             {
-                $this->isBrace = false;
+                $this->brace--;
             }
 
-            if ($this->isBrace)
+            if ($this->brace)
             {
                 if ($text{0} === '*')
                 {
-                    $this->isComment = true;
-                    $this->isBrace   = false;
+                    $this->comment++;
+                    $this->brace--;
                     continue;
                 }
 
@@ -95,7 +95,7 @@ trait Tokenizer
 
             if ($text === '{')
             {
-                $this->isBrace = true;
+                $this->brace++;
                 $this->commandIterator++;
             }
 
