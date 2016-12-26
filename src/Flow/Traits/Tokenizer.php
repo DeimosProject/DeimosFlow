@@ -128,7 +128,7 @@ trait Tokenizer
     {
         list ($command, $commands) = $this->commandRef($commands);
 
-        if ($command{0} === '$')
+        if (in_array($command{0}, ['$', '\'', '"'], true))
         {
             $class    = $lexer->get(LexerConst::T_VARIABLE);
             $commands = array_merge([$command], $commands);

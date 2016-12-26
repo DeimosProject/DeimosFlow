@@ -18,7 +18,7 @@ class Lexer
 
         // for
         LexerConst::T_FOR          => Extension\TFor\TFor::class,
-        LexerConst::T_END_FOR      => Extension\TFor\TEndFor::class,
+        LexerConst::T_END_FOR      => Extension\TFor\TEndBlock::class,
 
         // while
         LexerConst::T_WHILE        => Extension\TWhile\TWhile::class,
@@ -40,13 +40,15 @@ class Lexer
         LexerConst::T_VARIABLE     => Extension\TSimple\TVariable::class,
 
         // include
-        LexerConst::T_INCLUDE => Extension\TSimple\TInclude::class,
+        LexerConst::T_INCLUDE      => Extension\TSimple\TInclude::class,
 
         // partial
-        LexerConst::T_PARTIAL => Extension\TSimple\TPartial::class,
+        LexerConst::T_PARTIAL      => Extension\TSimple\TPartial::class,
 
         // block
-        //        LexerConst::T_BLOCK =>
+        LexerConst::T_BLOCK        => Extension\TBlock\TBlock::class,
+        LexerConst::T_BLOCK_START  => Extension\TBlock\TBlockStart::class,
+        LexerConst::T_BLOCK_END    => Extension\TBlock\TEndBlock::class,
 
     ];
 

@@ -27,7 +27,12 @@ class Configure
     /**
      * @var DI
      */
-    public $di;
+    protected $block;
+
+    /**
+     * @var DI
+     */
+    protected $di;
 
     /**
      * @var string
@@ -54,10 +59,30 @@ class Configure
 
     /**
      * @param DI $di
+     *
+     * @return DI
      */
-    public function di(DI $di)
+    public function di(DI $di = null)
     {
-        $this->di = $di;
+        if (!$this->di)
+        {
+            $this->di = $di;
+        }
+
+        return $this->di;
+    }
+
+    /**
+     * @return Block
+     */
+    public function block()
+    {
+        if (!$this->block)
+        {
+            $this->block = new Block();
+        }
+
+        return $this->block;
     }
 
     /**

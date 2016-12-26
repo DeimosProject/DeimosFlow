@@ -17,6 +17,22 @@
     </head>
     <body class="{$classBody}">
 
+        {*{block "hello"}*}
+            {*<h1>Hello world1</h1>*}
+        {*{/block}*}
+
+        {*{block "hello" prepend}*}
+            {*<h1>Hello world2</h1>*}
+        {*{/block}*}
+
+        {*{block "hello" append}*}
+            {*<h1>Hello world3</h1>*}
+        {*{/block}*}
+
+        {"hello"|substr:0:3}
+
+        {printBlock "hello" "Hello World"}<br/>
+
         {$content}
 
         <?php foreach ($storage as $item): ?>
@@ -25,8 +41,9 @@
 
         {php}if (empty($storage)) $storage = [1,2,3,4,5];{/php}
 
-        {$storage|var_dump}
-        {$storage|json.encode}
+        {$storage|var_dump}<br/>
+        {$storage|json.encode}<br/>
+        <font color="green">{$storage|count}</font><br/>
 
         {foreach $storage as $key => $item}
             {$item}

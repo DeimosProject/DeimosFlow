@@ -32,6 +32,7 @@ class DI extends Deimos\DI\DI
         $this->addCallback('var_dump', 'var_dump');
         $this->addCallback('substr', 'mb_substr');
         $this->addCallback('strlen', 'mb_strlen');
+        $this->addCallback('count', 'count');
 
         $this->addCallback('default', function ($string, $default)
         {

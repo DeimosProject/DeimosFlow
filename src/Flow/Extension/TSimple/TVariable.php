@@ -79,7 +79,7 @@ class TVariable extends FlowFunction
 
 //        $variable = current($this->attributes);
 
-        $storage = '$this->configure->di->call(\'' . $callback . '\', ';
+        $storage = '$this->configure->di()->call(\'' . $callback . '\', ';
         $export  = var_export($this->attributes, true);
         $export  = preg_replace('~\'(\$[\w->:]+)\'~', '$1', $export);
         $storage .= str_replace(["\n", "\r"], '', $export) . ')';

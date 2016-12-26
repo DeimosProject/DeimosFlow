@@ -28,10 +28,6 @@ class LexerConst
     const T_PHP     = 'php';
     const T_END_PHP = '/php';
 
-    // block
-    const T_BLOCK     = 'block';
-    const T_END_BLOCK = '/block';
-
     // assign
     const T_ASSIGN = 'assign';
 
@@ -43,5 +39,10 @@ class LexerConst
 
     // partial
     const T_PARTIAL = 'partial';
+
+    // partial
+    const T_BLOCK_START = 'block';
+    const T_BLOCK_END   = '/block';
+    const T_BLOCK       = 'printBlock';
 
 }
