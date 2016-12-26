@@ -85,7 +85,7 @@ class Flow
     protected function saveCache()
     {
         $compile = $this->compile();
-        $view    = $this->view();
+        $view    = $this->viewPath;
 
         if (file_exists($view))
         {
