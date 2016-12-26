@@ -207,7 +207,10 @@ class Flow
     {
         $this->view($view);
 
-        if (!file_exists($this->cachePath()) || filemtime($this->viewPath) > filemtime($this->cachePath()))
+        if ($this->configure->isDebug() ||
+            !file_exists($this->cachePath()) ||
+            filemtime($this->viewPath) > filemtime($this->cachePath())
+        )
         {
             $this->saveCache();
         }
@@ -224,7 +227,7 @@ class Flow
      */
     public function parse($view)
     {
-        $fullPath = $this->parseWithoutFullPath($view);
+        $fullPath  = $this->parseWithoutFullPath($view);
         $cachePath = realpath($this->configure->compile());
 
         $path = str_replace($cachePath, '', $fullPath);

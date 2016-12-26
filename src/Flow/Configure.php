@@ -45,6 +45,11 @@ class Configure
     protected $phpEnable = false;
 
     /**
+     * @var bool
+     */
+    protected $isDebug = false;
+
+    /**
      * @var array
      */
     protected $variable = [];
@@ -102,11 +107,27 @@ class Configure
     }
 
     /**
+     * @return bool
+     */
+    public function isDebug()
+    {
+        return $this->isDebug;
+    }
+
+    /**
      * set php enable
      */
     public function phpEnable()
     {
         $this->phpEnable = true;
+    }
+
+    /**
+     * set php enable
+     */
+    public function debugEnable()
+    {
+        $this->isDebug = true;
     }
 
     /**
