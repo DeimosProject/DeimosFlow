@@ -72,4 +72,7 @@ $flow = new Deimos\Flow\Flow($configure);
 //$result = $di->call('json.decode', [$result]);
 //var_dump($result);
 
+$flow->content = 'Have fun code!';
+$flow->storage = range(1, 5);
+
 echo $flow->render('admin/cms');

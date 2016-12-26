@@ -31,11 +31,6 @@ class Flow
     protected $curView;
 
     /**
-     * @var array
-     */
-    protected $variables = [];
-
-    /**
      * Flow constructor.
      *
      * @param Configure $configure
@@ -106,7 +101,11 @@ class Flow
     }
 
     /**
+     * @param string $compile
+     *
      * @return array
+     *
+     * @throws \InvalidArgumentException
      */
     protected function tokens($compile)
     {
@@ -115,7 +114,9 @@ class Flow
 
         foreach ($tokensLexer as $command)
         {
-            $tokens[$command] = $this->configure->tokenizer()->commandLexer($command);
+            $tokens[$command] = $this->configure
+                ->tokenizer()
+                ->commandLexer($this->configure, $command);
         }
 
         return $tokens;
@@ -146,17 +147,19 @@ class Flow
 
     /**
      * @return mixed|string
+     *
+     * @throws \InvalidArgumentException
      */
     protected function compile()
     {
         $compile = $this->removeComments($this->curView());
         $compile = $this->removePhpTags($compile);
-//var_dump($this->tokens($compile));die;
+
         foreach ($this->tokens($compile) as $tokenName => $tokens)
         {
             $compile = str_replace(
                 '{' . $tokenName . '}',
-                $tokens, // magic function
+                $tokens,
                 $compile
             );
         }
@@ -171,7 +174,7 @@ class Flow
      */
     public function __get($name)
     {
-        return $this->variables[$name];
+        return $this->configure->getVariable($name);
     }
 
     /**
@@ -180,7 +183,7 @@ class Flow
      */
     public function __set($name, $value)
     {
-        $this->variables[$name] = $value;
+        $this->configure->setVariable($name, $value);
     }
 
     /**
@@ -190,7 +193,26 @@ class Flow
      */
     public function __isset($name)
     {
-        return isset($this->variables[$name]);
+        return $this->configure->issetVariable($name);
+    }
+
+    /**
+     * @param string $view
+     *
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function parseWithoutFullPath($view)
+    {
+        $this->view($view);
+
+        if (!file_exists($this->cachePath()) || filemtime($this->viewPath) > filemtime($this->cachePath()))
+        {
+            $this->saveCache();
+        }
+
+        return $this->cachePath();
     }
 
     /**
@@ -200,20 +222,32 @@ class Flow
      *
      * @throws \InvalidArgumentException
      */
+    public function parse($view)
+    {
+        $fullPath = $this->parseWithoutFullPath($view);
+        $cachePath = realpath($this->configure->compile());
+
+        $path = str_replace($cachePath, '', $fullPath);
+
+        return ltrim($path, '/\\');
+    }
+
+    /**
+     * @param string $view
+     *
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
     public function render($view)
     {
-        $this->view($view);
+        $parse30c471f6aAfBcA7085640653ee = $this->parseWithoutFullPath($view);
         unset($view);
 
-        if (!file_exists($this->cachePath()) || filemtime($this->viewPath) > filemtime($this->cachePath()))
-        {
-            $this->saveCache();
-        }
-
-        extract($this->variables, EXTR_REFS);
+        extract($this->configure->getVariables(), EXTR_REFS);
 
         ob_start();
-        include $this->cachePath();
+        require $parse30c471f6aAfBcA7085640653ee;
 
         return ob_get_clean();
     }

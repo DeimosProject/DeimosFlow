@@ -12,7 +12,7 @@
         <script>
             'use strict';
 
-            {*var storage = {$storage|json.encode};*}
+            var storage = {$storage|json.encode};
         </script>
     </head>
     <body class="{$classBody}">
@@ -34,7 +34,8 @@
             Нет данных
         {/foreach}
 
-        {*{include "content"}*}
+        {include "ux/content"}
+        {partial "ux/content.txt"}
 
     </body>
 </html>

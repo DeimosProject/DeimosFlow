@@ -4,5 +4,5 @@ namespace Deimos\Flow;
 
 class Tokenizer
 {
-    use \Deimos\Flow\Traits\Tokenizer;
+    use Traits\Tokenizer;
 }

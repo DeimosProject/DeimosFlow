@@ -11,8 +11,8 @@ class Lexer
     protected $data = [
 
         // if
-        LexerConst::T_IF          => Extension\TIF\TIF::class,
-        LexerConst::T_ELSEIF      => Extension\TIF\TELSEIF::class,
+        LexerConst::T_IF           => Extension\TIF\TIF::class,
+        LexerConst::T_ELSEIF       => Extension\TIF\TELSEIF::class,
         LexerConst::T_ELSE         => Extension\TIF\TELSE::class,
         LexerConst::T_END_IF       => Extension\TIF\TEndIF::class,
 
@@ -37,7 +37,13 @@ class Lexer
         LexerConst::T_ASSIGN       => Extension\TSimple\TAssign::class,
 
         // variable
-        LexerConst::T_VARIABLE     => Extension\TSimple\TVariable::class
+        LexerConst::T_VARIABLE     => Extension\TSimple\TVariable::class,
+
+        // include
+        LexerConst::T_INCLUDE => Extension\TSimple\TInclude::class,
+
+        // partial
+        LexerConst::T_PARTIAL => Extension\TSimple\TPartial::class,
 
         // block
         //        LexerConst::T_BLOCK =>

@@ -35,6 +35,16 @@ class Configure
     protected $ext = 'tpl';
 
     /**
+     * @var bool
+     */
+    protected $phpEnable = false;
+
+    /**
+     * @var array
+     */
+    protected $variable = [];
+
+    /**
      * Configure constructor.
      */
     public function __construct()
@@ -59,6 +69,22 @@ class Configure
     }
 
     /**
+     * @return bool
+     */
+    public function isPhpEnable()
+    {
+        return $this->phpEnable;
+    }
+
+    /**
+     * set php enable
+     */
+    public function phpEnable()
+    {
+        $this->phpEnable = true;
+    }
+
+    /**
      * @param string $path
      *
      * @return string
@@ -73,6 +99,39 @@ class Configure
         }
 
         return $this->compile;
+    }
+
+    /**
+     * @param $path
+     *
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function getFile($path)
+    {
+        $fullPath = $this->template() . $path;
+
+        if (file_exists($fullPath))
+        {
+            return file_get_contents($fullPath);
+        }
+
+        return file_get_contents($path);
+    }
+
+    /**
+     * @param $path
+     *
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function requireFile($path)
+    {
+        $flow = new Flow($this);
+
+        return $flow->render($path);
     }
 
     /**
@@ -105,6 +164,41 @@ class Configure
         }
 
         return '.' . $this->ext;
+    }
+
+    public function getVariables()
+    {
+        return $this->variable;
+    }
+
+    public function __get($name)
+    {
+        return $this->getVariable($name);
+    }
+
+    public function __isset($name)
+    {
+        return $this->issetVariable($name);
+    }
+
+    public function __set($name, $value)
+    {
+        $this->setVariable($name, $value);
+    }
+
+    public function getVariable($name)
+    {
+        return $this->variable[$name];
+    }
+
+    public function issetVariable($name)
+    {
+        return isset($this->variable[$name]);
+    }
+
+    public function setVariable($name, $value)
+    {
+        $this->variable[$name] = $value;
     }
 
 }

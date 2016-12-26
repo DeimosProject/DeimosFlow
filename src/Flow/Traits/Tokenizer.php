@@ -2,6 +2,7 @@
 
 namespace Deimos\Flow\Traits;
 
+use Deimos\Flow\Configure;
 use Deimos\Flow\FlowFunction;
 use Deimos\Flow\Lexer;
 use Deimos\Flow\LexerConst;
@@ -46,20 +47,21 @@ trait Tokenizer
     }
 
     /**
-     * @param $source
+     * @param Configure $configure
+     * @param           $source
      *
      * @return string
      *
      * @throws \InvalidArgumentException
      */
-    public function commandLexer($source)
+    public function commandLexer(Configure $configure, $source)
     {
         $source = preg_replace('~([\s\t]+)~', ' ', $source);
 
         $commandParser = $this->parseText($source);
         $lexer         = new Lexer();
 
-        return $this->commandParser($lexer, $commandParser);
+        return $this->commandParser($lexer, $configure, $commandParser);
     }
 
     /**
@@ -77,6 +79,11 @@ trait Tokenizer
         return $data;
     }
 
+    /**
+     * @param array $commands
+     *
+     * @return array
+     */
     protected function commandRef(array $commands)
     {
         $command = array_shift($commands);
@@ -109,14 +116,15 @@ trait Tokenizer
     }
 
     /**
-     * @param Lexer $lexer
-     * @param array $commands
+     * @param Lexer     $lexer
+     * @param Configure $configure
+     * @param array     $commands
      *
      * @return string
      *
      * @throws \InvalidArgumentException
      */
-    protected function commandParser(Lexer $lexer, array $commands)
+    protected function commandParser(Lexer $lexer, Configure $configure, array $commands)
     {
         list ($command, $commands) = $this->commandRef($commands);
 
@@ -133,7 +141,7 @@ trait Tokenizer
         /**
          * @var $object FlowFunction
          */
-        $object = new $class($commands);
+        $object = new $class($configure, $commands);
 
         return $object->view();
     }

@@ -38,4 +38,10 @@ class LexerConst
     // variable
     const T_VARIABLE = 'variable';
 
+    // include
+    const T_INCLUDE = 'include';
+
+    // partial
+    const T_PARTIAL = 'partial';
+
 }
