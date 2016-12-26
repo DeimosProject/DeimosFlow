@@ -30,7 +30,7 @@ class Configure
     protected $block;
 
     /**
-     * @var DI
+     * @var DefaultContainer
      */
     protected $di;
 
@@ -63,11 +63,11 @@ class Configure
     }
 
     /**
-     * @param DI $di
+     * @param DefaultContainer $di
      *
      * @return DI
      */
-    public function di(DI $di = null)
+    public function di(DefaultContainer $di = null)
     {
         if (!$this->di)
         {
