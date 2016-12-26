@@ -84,7 +84,13 @@ class Flow
      */
     protected function saveCache()
     {
-        return file_put_contents($this->cachePath(), $this->compile());
+        $compile = $this->compile();
+        if (!empty($compile))
+        {
+            return file_put_contents($this->cachePath(), $this->compile());
+        }
+
+        throw new \InvalidArgumentException('File not found' . $this->view());
     }
 
     /**
