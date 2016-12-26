@@ -72,17 +72,39 @@ class TVariable extends FlowFunction
     {
         $callback = $this->init();
 
-        if (!$callback)
+        $isDefault = $callback === 'default';
+
+        if (!$callback || $isDefault)
         {
             $callback = 'escape';
         }
 
-//        $variable = current($this->attributes);
+        $variable = current($this->attributes);
 
-        $storage = '$this->configure->di()->call(\'' . $callback . '\', ';
-        $export  = var_export($this->attributes, true);
-        $export  = preg_replace('~\'(\$[\w->:]+)\'~', '$1', $export);
-        $storage .= str_replace(["\n", "\r"], '', $export) . ')';
+        if ($isDefault && $variable{0} === '$')
+        {
+            array_shift($this->attributes);
+            $default = array_shift($this->attributes);
+
+            if ($default{0} !== '$')
+            {
+                $default = '\'' . $default . '\'';
+            }
+
+            $storage = sprintf(
+                '( empty(%s) ? $this->configure->di()->escape(%s): $this->configure->di()->escape(%s) )',
+                $variable,
+                $default,
+                $variable
+            );
+        }
+        else
+        {
+            $storage = '$this->configure->di()->call(\'' . $callback . '\', ';
+            $export  = var_export($this->attributes, true);
+            $export  = preg_replace('~\'(\$[\w->:]+)\'~', '$1', $export);
+            $storage .= str_replace(["\n", "\r"], '', $export) . ')';
+        }
 
         return '<?php echo ' . $storage . '; ?>';
     }
