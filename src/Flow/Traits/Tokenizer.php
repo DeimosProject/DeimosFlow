@@ -2,6 +2,10 @@
 
 namespace Deimos\Flow\Traits;
 
+use Deimos\Flow\FlowFunction;
+use Deimos\Flow\Lexer;
+use Deimos\Flow\LexerConst;
+
 trait Tokenizer
 {
 
@@ -41,11 +45,104 @@ trait Tokenizer
         return $tokens;
     }
 
+    /**
+     * @param $source
+     *
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
     public function commandLexer($source)
     {
-        return $this->parseText($source);
+        $source = preg_replace('~([\s\t]+)~', ' ', $source);
+
+        $commandParser = $this->parseText($source);
+        $lexer         = new Lexer();
+
+        return $this->commandParser($lexer, $commandParser);
     }
 
+    /**
+     * @param $data
+     *
+     * @return mixed
+     */
+    protected function value($data)
+    {
+        if (is_array($data))
+        {
+            return $data[1];
+        }
+
+        return $data;
+    }
+
+    protected function commandRef(array $commands)
+    {
+        $command = array_shift($commands);
+        $command = $this->value($command);
+
+        if (!empty($commands))
+        {
+            if ($command === '/')
+            {
+                $nextCommand = array_shift($commands);
+                $nextCommand = $this->value($nextCommand);
+
+                $command .= $nextCommand;
+            }
+
+            $test = $this->value($command[0]);
+
+            if ($test === ' ')
+            {
+                array_shift($commands);
+            }
+
+            foreach ($commands as $key => $value)
+            {
+                $commands[$key] = $this->value($value);
+            }
+        }
+
+        return [$command, $commands];
+    }
+
+    /**
+     * @param Lexer $lexer
+     * @param array $commands
+     *
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function commandParser(Lexer $lexer, array $commands)
+    {
+        list ($command, $commands) = $this->commandRef($commands);
+
+        if ($command{0} === '$')
+        {
+            $class    = $lexer->get(LexerConst::T_VARIABLE);
+            $commands = array_merge([$command], $commands);
+        }
+        else
+        {
+            $class = $lexer->get($command);
+        }
+
+        /**
+         * @var $object FlowFunction
+         */
+        $object = new $class($commands);
+
+        return $object->view();
+    }
+
+    /**
+     * @param $source
+     *
+     * @return array
+     */
     public function lexer($source)
     {
         $this->commands        = [];

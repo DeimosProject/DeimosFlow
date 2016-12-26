@@ -1,50 +1,40 @@
 <!DOCTYPE>
 <html>
     <head>
+        {$object|var_dump}
+        {$object->hello|var_dump:my:name}
         <?php echo $title; ?>
         {*<title>{$title|_}</title>*}
-        {assign var=name value="Bob"}
-        {assign names array("Bob", "Max")}
+        {assign names ["Bob", "Max"]}
         <title>{$title|default:'Not title'}</title>
-        <script src="/js/helper-{$id}.js"></script>
+        <script src="/js/helper-{$id|default:'5'}.js"></script>
         <script src='/js/helper-{$id}.js'></script>
         <script>
             'use strict';
 
-            var storage = {$storage|'json.encode'};
+            {*var storage = {$storage|json.encode};*}
         </script>
     </head>
     <body class="{$classBody}">
 
         {$content}
 
-        <?php foreach ($storage as $item) : ?>
+        <?php foreach ($storage as $item): ?>
             <?=$item;?>
         <?php endforeach; ?>
 
-        {foreach from=storage item=item key=key}
-            {$key} = {$item}<br/>
-        {/foreach}
+        {php}if (empty($storage)) $storage = [1,2,3,4,5];{/php}
 
-        {foreach from=["1","2",3,4,5,6,7,8] item=item key=key}
-            {$key} = {$item}<br/>
-        {/foreach}
-
-        {foreach from=storage item=item key=key}{$key}{$item}{/foreach}
-
-        {if ($a > $b)}
-            {storage}
-        {elseif ($b === $a)}
-            {hello}
-        {else}
-            {wheel}
-        {/if}
+        {$storage|var_dump}
+        {$storage|json.encode}
 
         {foreach $storage as $key => $item}
-            {$storage}
+            {$item}
+        {foreachelse}
+            Нет данных
         {/foreach}
 
-        {include file="content"}
+        {*{include "content"}*}
 
     </body>
 </html>

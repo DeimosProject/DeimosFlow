@@ -2,6 +2,8 @@
 
 namespace Deimos\Flow;
 
+use Deimos\DI\DI;
+
 class Configure
 {
 
@@ -23,6 +25,11 @@ class Configure
     protected $tokenizer;
 
     /**
+     * @var DI
+     */
+    public $di;
+
+    /**
      * @var string
      */
     protected $ext = 'tpl';
@@ -33,6 +40,14 @@ class Configure
     public function __construct()
     {
         $this->tokenizer = new Tokenizer();
+    }
+
+    /**
+     * @param DI $di
+     */
+    public function di(DI $di)
+    {
+        $this->di = $di;
     }
 
     /**

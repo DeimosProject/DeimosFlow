@@ -156,7 +156,7 @@ class Flow
         {
             $compile = str_replace(
                 '{' . $tokenName . '}',
-                '<!-- ' . $tokenName . ' -->', // magic function
+                $tokens, // magic function
                 $compile
             );
         }

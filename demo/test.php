@@ -7,10 +7,6 @@ $configure = new Deimos\Flow\Configure();
 $configure->compile(dirname(__DIR__) . '/cache');
 $configure->template(dirname(__DIR__) . '/view');
 
-$flow = new Deimos\Flow\Flow($configure);
-
-$flow->title = 'World';
-
 class DI extends Deimos\DI\DI
 {
     /**
@@ -28,6 +24,20 @@ class DI extends Deimos\DI\DI
 
     protected function configure()
     {
+        $this->addCallback('escape', function ($string)
+        {
+            return htmlentities($string, ENT_QUOTES | ENT_IGNORE, 'UTF-8');
+        });
+
+        $this->addCallback('var_dump', 'var_dump');
+        $this->addCallback('substr', 'mb_substr');
+        $this->addCallback('strlen', 'mb_strlen');
+
+        $this->addCallback('default', function ($string, $default)
+        {
+            return empty($string) ? $this->escape($default) : $string;
+        });
+
         $this->build('arr', function ()
         {
             return $this->helper->arr();
@@ -45,8 +55,14 @@ class DI extends Deimos\DI\DI
     }
 }
 
-//$di = new DI();
-//
+$di = new DI();
+
+$configure->di($di);
+
+$flow = new Deimos\Flow\Flow($configure);
+
+//$flow->title = 'World';
+
 //$result = $di->call('arr.get', [['a' => 1], 'a']);
 //var_dump($result);
 //
