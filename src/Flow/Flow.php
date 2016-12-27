@@ -341,6 +341,19 @@ class Flow
     }
 
     /**
+     * @return int
+     */
+    public function random()
+    {
+        if (function_exists('random_int'))
+        {
+            return random_int(0, PHP_INT_MAX);
+        }
+
+        return mt_rand(0, PHP_INT_MAX);
+    }
+
+    /**
      * @param string $view
      *
      * @return string
@@ -349,25 +362,27 @@ class Flow
      */
     public function render($view)
     {
-        $parse30c471f6aAfBcA7085640653ee = $this->checkView($view);
+        $rand = $this->random();
+
+        ${'parse' . $rand} = $this->checkView($view);
         unset($view);
 
         extract($this->configure->getVariables(), EXTR_REFS);
 
         ob_start();
-        require $parse30c471f6aAfBcA7085640653ee;
+        require ${'parse' . $rand};
 
-        $result30c471f6aAfBcA7085640653ee = ob_get_clean();
+        ${'result' . $rand} = ob_get_clean();
 
-        $extends30c471f6aAfBcA7085640653ee = $this->configure->getExtendsFile($this->selectView(), true);
+        ${'extends' . $rand} = $this->configure->getExtendsFile($this->selectView(), true);
 
-        foreach ($extends30c471f6aAfBcA7085640653ee as $extend30c471f6aAfBcA7085640653ee)
+        foreach (${'extends' . $rand} as ${'extend' . $rand})
         {
-            $result30c471f6aAfBcA7085640653ee = (new static($this->configure))
-                ->render($extend30c471f6aAfBcA7085640653ee) . $result30c471f6aAfBcA7085640653ee;
+            ${'result' . $rand} = (new static($this->configure))
+                ->render(${'extend' . $rand}) . ${'result' . $rand};
         }
 
-        return $result30c471f6aAfBcA7085640653ee;
+        return ${'result' . $rand};
     }
 
 }

@@ -49,6 +49,12 @@ trait Block
         $this->lastName   = $name;
         $this->selectView = $flow->selectView();
         $this->type       = $type;
+
+        if (!isset($this->blocks[$this->lastName]))
+        {
+            $this->blocks[$this->lastName] = '';
+        }
+
         ob_start();
     }
 
@@ -66,12 +72,16 @@ trait Block
 
         $result = ob_get_clean();
 
-        if ($this->type === 'inner' || empty($this->blocks[$this->lastName]))
+        if ($this->type === 'inner')
         {
-
-            $this->display();
-
-            $this->blocks[$this->lastName] = $result;
+            if (
+                empty($this->blocks[$this->lastName]) ||
+                empty($this->configure->getExtendsAll($this->selectView))
+            )
+            {
+                // default value
+                $this->blocks[$this->lastName] = $result;
+            }
         }
         else
         {
@@ -87,9 +97,9 @@ trait Block
                     = $result . $this->blocks[$this->lastName];
             }
 
-            $this->display();
-
         }
+
+        $this->display();
 
     }
 

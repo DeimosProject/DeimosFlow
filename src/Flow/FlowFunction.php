@@ -54,12 +54,7 @@ abstract class FlowFunction
      */
     public function random()
     {
-        if (function_exists('random_int'))
-        {
-            return random_int(0, PHP_INT_MAX);
-        }
-
-        return mt_rand(0, PHP_INT_MAX);
+        return $this->flow->random();
     }
 
     abstract public function view();

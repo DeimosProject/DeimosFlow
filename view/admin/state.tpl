@@ -17,7 +17,7 @@
     </head>
     <body class="{$classBody}">
 
-        {printBlock "hello" "Hello World"}<br/>
+        <h1>{block "hello" prepend}Hello {/block}</h1>
 
         {$content}
 

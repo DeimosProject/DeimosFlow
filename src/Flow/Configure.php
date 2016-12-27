@@ -226,7 +226,7 @@ class Configure
     /**
      * @param $view
      *
-     * @return array
+     * @return bool
      */
     public function getExtendsAll($view)
     {
@@ -235,7 +235,7 @@ class Configure
             return $this->extendsAll[$view];
         }
 
-        return [];
+        return true;
     }
 
     /**
