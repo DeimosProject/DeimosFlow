@@ -7,14 +7,17 @@ use Deimos\Flow\FlowFunction;
 class TForeach extends FlowFunction
 {
 
+    public static $level = 0;
+    public static $name  = [];
+
     public function view()
     {
-        $name      = null;
+        self::$level++;
         $separator = array_shift($this->data);
 
         if ($separator === ':')
         {
-            $name = array_shift($this->data);
+            self::$name[self::$level] = array_shift($this->data);
             array_shift($this->data);
         }
 
@@ -50,10 +53,10 @@ class TForeach extends FlowFunction
             $value = current($storage);
         }
 
-        if ($name)
+        if (!empty(self::$name[self::$level]))
         {
-            $if .= ' <?php $this->foreach->register(\'' . $name . '\', ' . $variable . '); ?>';
-            $init = '$this->foreach->' . $name . '(' . $key . ');';
+            $if .= ' <?php $this->foreach->register(\'' . self::$name[self::$level] . '\', ' . $variable . '); ?>';
+            $init = '$this->foreach->' . self::$name[self::$level] . '(' . $key . ');';
         }
 
         $foreach = sprintf('<?php foreach (%s as %s => %s): %s ?>', $variable, $key, $value, $init);

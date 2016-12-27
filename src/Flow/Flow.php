@@ -132,17 +132,19 @@ class Flow
      */
     protected function tokens($compile)
     {
-        $tokensLexer = $this->configure->tokenizer()->lexer($compile);
-        $tokens      = [];
-
-        foreach ($tokensLexer as $command)
-        {
-            $tokens[$command] = $this->configure
-                ->tokenizer()
-                ->commandLexer($this, $this->configure, $command);
-        }
-
-        return $tokens;
+        return $this->configure->tokenizer()->lexer($compile);
+//
+//        return $tokensLexer;
+//        $tokens      = [];
+//
+//        foreach ($tokensLexer as $command)
+//        {
+//            $tokens[$command] = $this->configure
+//                ->tokenizer()
+//                ->commandLexer($this, $this->configure, $command);
+//        }
+//
+//        return $tokens;
     }
 
     /**
@@ -178,12 +180,15 @@ class Flow
         $compile = $this->removeComments($this->curView());
         $compile = $this->removePhpTags($compile);
 
-        foreach ($this->tokens($compile) as $tokenName => $tokens)
+        foreach ($this->tokens($compile) as $command)
         {
-            $compile = str_replace(
-                '{' . $tokenName . '}',
-                $tokens,
-                $compile
+            $tokenData = $this->configure->tokenizer()
+                ->commandLexer($this, $this->configure, $command);
+
+            $compile = preg_replace(
+                '~' . preg_quote('{' . $command . '}', null) . '~',
+                $tokenData,
+                $compile, 1
             );
         }
 

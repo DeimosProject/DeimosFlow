@@ -52,6 +52,16 @@ class DefaultContainer extends DI
             $this->addCallback($callbackName, $callable);
         }
 
+        $this->addCallback('json_encode', function (array $storage = null)
+        {
+            if (!$storage)
+            {
+                $storage = [];
+            }
+
+            return $this->json()->encode($storage);
+        });
+
         $this->build('arr', function ()
         {
             return $this->helper->arr();

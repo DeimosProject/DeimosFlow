@@ -12,7 +12,7 @@
         <script>
             'use strict';
 
-            var storage = {$storage|json.encode};
+            var storage = {$storage|json_encode};
         </script>
     </head>
     <body class="{$classBody}">
@@ -31,14 +31,15 @@
         {$storage|json.encode}<br/>
         <font color="green">{$storage|count}</font><br/>
 
-        {foreach:foo $storage as $mySuperKey => $item}
-            {*{$item}*}
-            {*{$this->foreach->foo|var_dump}*}
-            [{$this->foreach->foo->value}]
+        {foreach:foo $storage as $item}
+            {$item}
             {$storage[$this->foreach->foo->key]}
         {foreachelse}
             Нет данных
         {/foreach}
+
+        <p>total: {$this->foreach->foo->total}</p>
+        <p>memory usage: {$this->foreach->foo->memory}</p>
 
         {include "ux/content"}
         {partial "ux/content.txt"}

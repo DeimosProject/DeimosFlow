@@ -6,6 +6,11 @@ class ForeachState
 {
 
     /**
+     * @var array
+     */
+    protected $_memoryUsege = [];
+
+    /**
      * @var string
      */
     protected $_iteration;
@@ -26,6 +31,11 @@ class ForeachState
     protected $_lastKey;
 
     /**
+     * @var string
+     */
+    protected $_total;
+
+    /**
      * @var array
      */
     protected $storage;
@@ -37,7 +47,9 @@ class ForeachState
      */
     public function __construct(array &$storage)
     {
-        $this->storage    = &$storage;
+        $this->storage = &$storage;
+        $this->_total  = count($storage);
+
         $this->_iteration = 0;
         $this->_key       = key($storage);
         $this->_firstKey  = key($storage);
@@ -46,6 +58,8 @@ class ForeachState
         $this->_lastKey = key($storage);
 
         reset($storage);
+
+        $this->_memoryUsege[] = memory_get_usage();
     }
 
     /**
@@ -120,7 +134,7 @@ class ForeachState
     }
 
     /**
-     * @return string
+     * @return string|int
      */
     public function key()
     {
@@ -136,7 +150,7 @@ class ForeachState
     }
 
     /**
-     * @return mixed
+     * @return string|int
      */
     public function firstKey()
     {
@@ -144,7 +158,7 @@ class ForeachState
     }
 
     /**
-     * @return mixed
+     * @return string|int
      */
     public function lastKey()
     {
@@ -168,12 +182,35 @@ class ForeachState
     }
 
     /**
+     * @return int
+     */
+    public function total()
+    {
+        return $this->_total;
+    }
+
+    /**
+     * @return string
+     */
+    public function memory()
+    {
+        return (array_sum($this->_memoryUsege) / 2048) . ' KB';
+    }
+
+    /**
      * @param $key
      */
     public function __invoke($key)
     {
-        $this->_iteration++;
         $this->_key = $key;
+    }
+
+    /**
+     * end microTime
+     */
+    public function end()
+    {
+        $this->_memoryUsege[] = memory_get_usage();
     }
 
 }

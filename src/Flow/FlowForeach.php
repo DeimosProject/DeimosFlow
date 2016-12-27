@@ -13,16 +13,9 @@ class FlowForeach
     /**
      * @param string $name
      * @param array  $storage
-     *
-     * @throws \BadFunctionCallException
      */
     public function register($name, array $storage)
     {
-        if (isset($this->state[$name]))
-        {
-            throw new \BadFunctionCallException('FlowForeach `' . $name . '` is readOnly!');
-        }
-
         $this->state[$name] = new ForeachState($storage);
     }
 
@@ -50,8 +43,6 @@ class FlowForeach
     /**
      * @param string $name
      * @param mixed  $value
-     *
-     * @throws \BadFunctionCallException
      */
     public function __set($name, $value)
     {

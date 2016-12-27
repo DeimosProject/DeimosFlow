@@ -9,14 +9,26 @@ class TEndForeach extends FlowFunction
 
     public function view()
     {
-        if (TElseForeach::$elseForeach)
+        if (!empty(TElseForeach::$elseForeach[TForeach::$level]))
         {
-            TElseForeach::$elseForeach = false;
+            TElseForeach::$elseForeach[TForeach::$level] = null;
+            TForeach::$level--;
 
             return '<?php endif; ?>';
         }
 
-        return '<?php endforeach; endif; ?>';
+        $init = '';
+
+        if (!empty(TForeach::$name[TForeach::$level]))
+        {
+            $init = '$this->foreach->' . TForeach::$name[TForeach::$level] . '->end();';
+
+            TForeach::$name[TForeach::$level] = null;
+        }
+
+        TForeach::$level--;
+
+        return '<?php endforeach; ' . $init . ' endif; ?>';
     }
 
 }
