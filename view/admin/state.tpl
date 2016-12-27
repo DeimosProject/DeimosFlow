@@ -32,7 +32,7 @@
         <font color="green">{$storage|count}</font><br/>
 
         {foreach:foo $storage as $item}
-            {$item}
+            {$this->foreach->foo|var_dump}
         {foreachelse}
             Нет данных
         {/foreach}
