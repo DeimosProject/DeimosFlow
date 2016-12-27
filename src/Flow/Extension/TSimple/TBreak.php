@@ -9,7 +9,7 @@ class TBreak extends FlowFunction
 
     public function view()
     {
-        return '<?php continue; ?>';
+        return '<?php break; ?>';
     }
 
 }
