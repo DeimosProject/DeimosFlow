@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
     <head>
         {$object|var_dump}
@@ -39,7 +39,6 @@
         {/foreach}
 
         <p>total: {$this->foreach->foo->total}</p>
-        <p>memory usage: {$this->foreach->foo->memory}</p>
 
         {include "ux/content"}
         {partial "ux/content.txt"}
