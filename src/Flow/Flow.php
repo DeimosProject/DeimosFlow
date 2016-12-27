@@ -58,8 +58,8 @@ class Flow
     {
         if (!$this->view)
         {
-            $this->view     = $view;
-            $this->viewPath = $this->configure->template() . $view . $this->configure->ext();
+            $this->view     = preg_replace('~(\.tpl)$~', '', $view);
+            $this->viewPath = $this->configure->template() . $this->view . $this->configure->ext();
         }
 
         return $this->view;

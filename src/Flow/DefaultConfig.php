@@ -13,6 +13,7 @@ class DefaultConfig
         'strlen'   => 'mb_strlen',
         'count'    => 'count',
         'var_dump' => 'var_dump',
+        'date'     => 'date',
     ];
 
     /**
