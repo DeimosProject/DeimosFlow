@@ -105,9 +105,22 @@ class ForeachState
     /**
      * @return bool
      */
-    public function first()
+    public function isFirst()
     {
         return $this->key() === $this->firstKey();
+    }
+
+    public function first()
+    {
+        return $this->isFirst();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLast()
+    {
+        return $this->key() === $this->lastKey();
     }
 
     /**
@@ -115,7 +128,7 @@ class ForeachState
      */
     public function last()
     {
-        return $this->key() === $this->lastKey();
+        return $this->isLast();
     }
 
     /**
