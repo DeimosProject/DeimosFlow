@@ -27,6 +27,12 @@ class LexerConst
     const T_ELSEIF = 'elseif';
     const T_END_IF = '/if';
 
+    // try|catch|finally
+    const T_TRY     = 'try';
+    const T_CATCH   = 'catch';
+    const T_FINALLY = 'finally';
+    const T_END_TRY = '/try';
+
     // php
     const T_PHP     = 'php';
     const T_END_PHP = '/php';
