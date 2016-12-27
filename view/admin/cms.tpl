@@ -33,6 +33,7 @@
 
         {foreach:foo $storage as $item}
             {$item}
+            {foreach $storage as $item}{/foreach}
         {foreachelse}
             Нет данных
         {/foreach}

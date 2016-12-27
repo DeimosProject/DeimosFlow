@@ -6,11 +6,6 @@ class ForeachState
 {
 
     /**
-     * @var array
-     */
-    protected $_memoryUsege = [];
-
-    /**
      * @var string
      */
     protected $_iteration;
@@ -58,8 +53,6 @@ class ForeachState
         $this->_lastKey = key($storage);
 
         reset($storage);
-
-        $this->_memoryUsege[] = memory_get_usage();
     }
 
     /**
@@ -190,27 +183,11 @@ class ForeachState
     }
 
     /**
-     * @return string
-     */
-    public function memory()
-    {
-        return (array_sum($this->_memoryUsege) / 2048) . ' KB';
-    }
-
-    /**
      * @param $key
      */
     public function __invoke($key)
     {
         $this->_key = $key;
-    }
-
-    /**
-     * end microTime
-     */
-    public function end()
-    {
-        $this->_memoryUsege[] = memory_get_usage();
     }
 
 }

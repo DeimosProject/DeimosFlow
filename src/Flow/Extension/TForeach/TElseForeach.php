@@ -17,7 +17,7 @@ class TElseForeach extends FlowFunction
 
         if (!empty(TForeach::$name[TForeach::$level]))
         {
-            $init = '$this->foreach->' . TForeach::$name[TForeach::$level] . '->end();';
+//            $init = '$this->foreach->' . TForeach::$name[TForeach::$level] . '->end();';
 
             TForeach::$name[TForeach::$level] = null;
         }
