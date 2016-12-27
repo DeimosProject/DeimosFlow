@@ -27,6 +27,11 @@ class DefaultConfig
                 return mb_strlen($storage);
             }
 
+            if ($storage instanceof \ArrayObject)
+            {
+                return $storage->count();
+            }
+
             return count($storage);
         });
 
