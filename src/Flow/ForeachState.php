@@ -110,6 +110,9 @@ class ForeachState
         return $this->key() === $this->firstKey();
     }
 
+    /**
+     * @return bool
+     */
     public function first()
     {
         return $this->isFirst();
