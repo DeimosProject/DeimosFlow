@@ -9,7 +9,14 @@ class TContinue extends FlowFunction
 
     public function view()
     {
-        return '<?php continue; ?>';
+        if (!empty($this->data))
+        {
+            array_shift($this->data);
+        }
+
+        $d = sprintf('%d', implode($this->data));
+
+        return '<?php continue ' . ($d ? $d : 1) . '; ?>';
     }
 
 }

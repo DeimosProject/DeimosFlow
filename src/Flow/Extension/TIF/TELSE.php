@@ -8,6 +8,8 @@ class TELSE extends FlowFunction
 {
     public function view()
     {
-        return sprintf('<?php else (%s): ?>', implode($this->data));
+        array_shift($this->data);
+
+        return '<?php else: ?>';
     }
 }

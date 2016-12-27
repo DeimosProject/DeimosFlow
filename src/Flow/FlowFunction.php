@@ -5,6 +5,8 @@ namespace Deimos\Flow;
 abstract class FlowFunction
 {
 
+    const REGEXP_VARIABLE = '\$[\w"\[\]\(\)\$-\>]+';
+
     /**
      * @var array
      */

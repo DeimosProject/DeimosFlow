@@ -9,7 +9,14 @@ class TBreak extends FlowFunction
 
     public function view()
     {
-        return '<?php break; ?>';
+        if (!empty($this->data))
+        {
+            array_shift($this->data);
+        }
+
+        $d = sprintf('%d', implode($this->data));
+
+        return '<?php break ' . ($d ? $d : 1) . '; ?>';
     }
 
 }

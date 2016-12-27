@@ -34,32 +34,44 @@ class TForeach extends FlowFunction
         $if   = sprintf('<?php if (!empty(%s)): ?>', $variable);
         $init = '';
 
-        $storage = [];
-        foreach ($this->data as $value)
+        $regExp = sprintf(
+            '~(?<variable>%s) as (?<key>%s)? ?=?>? ?(?<item>%s)~',
+            self::REGEXP_VARIABLE,
+            self::REGEXP_VARIABLE,
+            self::REGEXP_VARIABLE
+        );
+
+        preg_match($regExp, $variable . implode($this->data), $matches);
+        unset($variable);
+
+        if (empty($matches['variable']))
         {
-            if (!in_array($value, [' ', 'as', '=>'], true))
-            {
-                $storage[] = $value;
-            }
+            throw new \InvalidArgumentException('Foreach not found variable');
         }
 
-        if (count($storage) === 2)
+        if (empty($matches['item']))
         {
-            list ($key, $value) = $storage;
+            throw new \InvalidArgumentException('Foreach not found item');
         }
-        else
+
+        if (empty($matches['key']))
         {
-            $key   = '$key' . $this->random() . $this->random();
-            $value = current($storage);
+            $matches['key'] = '$key' . $this->random() . $this->random();
         }
 
         if (!empty(self::$name[self::$level]))
         {
-            $if .= ' <?php $this->foreach->register(\'' . self::$name[self::$level] . '\', ' . $variable . '); ?>';
-            $init = '$this->foreach->' . self::$name[self::$level] . '(' . $key . ');';
+            $if .= ' <?php $this->foreach->register(\'' . self::$name[self::$level] . '\', ' . $matches['variable'] . '); ?>';
+            $init = '$this->foreach->' . self::$name[self::$level] . '(' . $matches['key'] . ');';
         }
 
-        $foreach = sprintf('<?php foreach (%s as %s => %s): %s ?>', $variable, $key, $value, $init);
+        $foreach = sprintf(
+            '<?php foreach (%s as %s => %s): %s ?>',
+            $matches['variable'],
+            $matches['key'],
+            $matches['item'],
+            $init
+        );
 
         return $if . $foreach;
     }
