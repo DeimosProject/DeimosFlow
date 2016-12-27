@@ -40,7 +40,7 @@
         <p>total: {$this->foreach->foo->total}</p>
 
         {include "ux/content"}
-        {partial "ux/content.txt"}
+        {partial "ux/content.tpl"}
 
     </body>
 </html>
