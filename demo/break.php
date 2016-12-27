@@ -2,12 +2,10 @@
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-$configure = new Deimos\Flow\Configure();
+$flow = new Deimos\Flow\Flow();
 
-$configure->compile(dirname(__DIR__) . '/cache');
-$configure->template(dirname(__DIR__) . '/view');
-
-$flow = new Deimos\Flow\Flow($configure);
+$flow->setCompileDir(dirname(__DIR__) . '/compile');
+$flow->setTemplateDir(dirname(__DIR__) . '/view');
 
 $flow->template = 'test';
 

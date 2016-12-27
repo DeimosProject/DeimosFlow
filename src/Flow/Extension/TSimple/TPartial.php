@@ -16,6 +16,12 @@ class TPartial extends FlowFunction
     {
         array_shift($this->data);
 
+        if (current($this->data) === 'file')
+        {
+            array_shift($this->data); // file
+            array_shift($this->data); // =
+        }
+
         return '<?php echo $this->configure->getFile(' . implode($this->data) . ');?>';
     }
 

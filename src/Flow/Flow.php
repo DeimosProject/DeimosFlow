@@ -40,11 +40,43 @@ class Flow
      *
      * @param Configure $configure
      */
-    public function __construct(Configure $configure)
+    public function __construct(Configure $configure = null)
     {
-        $this->configure = $configure;
+        if (!$configure)
+        {
+            $configure = new Configure();
+        }
 
-        $this->foreach = new FlowForeach();
+        $this->configure = $configure;
+        $this->foreach   = new FlowForeach();
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return $this
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function setTemplateDir($path)
+    {
+        $this->configure->template($path);
+
+        return $this;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return $this
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function setCompileDir($path)
+    {
+        $this->configure->compile($path);
+
+        return $this;
     }
 
     /**
@@ -130,21 +162,9 @@ class Flow
      *
      * @throws \InvalidArgumentException
      */
-    protected function tokens($compile)
+    protected function lexer($compile)
     {
         return $this->configure->tokenizer()->lexer($compile);
-//
-//        return $tokensLexer;
-//        $tokens      = [];
-//
-//        foreach ($tokensLexer as $command)
-//        {
-//            $tokens[$command] = $this->configure
-//                ->tokenizer()
-//                ->commandLexer($this, $this->configure, $command);
-//        }
-//
-//        return $tokens;
     }
 
     /**
@@ -154,7 +174,7 @@ class Flow
      */
     protected function removeComments($view)
     {
-        return preg_replace('~{\*(.*?)\*}([\s]+)?~', '', $view);
+        return preg_replace('~{*(.*?)\*}([\s]+)?~', '', $view);
     }
 
     /**
@@ -166,6 +186,7 @@ class Flow
     {
         $view = preg_replace('~(<\?php)~', '<!-- ', $view);
         $view = preg_replace('~(<\?=)~', '<!-- ', $view);
+        $view = preg_replace('~(<\?)~', '<!-- ', $view);
 
         return preg_replace('~(\?>)~', ' -->', $view);
     }
@@ -181,25 +202,70 @@ class Flow
     }
 
     /**
+     * @param string $command
+     *
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function token($command)
+    {
+        return $this->configure->tokenizer()
+            ->commandLexer($this, $this->configure, $command);
+    }
+
+    /**
+     * @param $command
+     *
+     * @return string
+     */
+    protected function quote($command)
+    {
+        return '~' . preg_quote($command, null) . '~';
+    }
+
+    /**
+     * @param string $command
+     * @param string $data
+     * @param string $text
+     * @param int    $limit
+     *
+     * @return string
+     */
+    protected function replace($command, $data, $text, $limit = -1)
+    {
+        return preg_replace($this->quote($command), $data, $text, $limit);
+    }
+
+    /**
+     * @param string $command
+     * @param string $data
+     * @param string $text
+     *
+     * @return string
+     */
+    protected function replaceOne($command, $data, $text)
+    {
+        return $this->replace($command, $data, $text, 1);
+    }
+
+    /**
      * @return mixed|string
      *
      * @throws \InvalidArgumentException
      */
     protected function compile()
     {
-        $compile = $this->removeComments($this->curView());
+        $compile = $this->literal($this->curView());
+        $compile = $this->removeComments($compile);
         $compile = $this->removePhpTags($compile);
-        $compile = $this->literal($compile);
 
-        foreach ($this->tokens($compile) as $command)
+        foreach ($this->lexer($compile) as $command)
         {
-            $tokenData = $this->configure->tokenizer()
-                ->commandLexer($this, $this->configure, $command);
-
-            $compile = preg_replace(
-                '~' . preg_quote('{' . $command . '}', null) . '~',
-                $tokenData,
-                $compile, 1
+            $compile = $this->replaceOne(
+                '{' . $command . '}',
+                $this->token($command),
+                $compile
             );
         }
 

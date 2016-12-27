@@ -149,9 +149,14 @@ class Configure
      */
     public function compile($path = null)
     {
-        if (!$this->compile)
+        if ($path)
         {
             $this->compile = $this->createDirectory($path);
+        }
+
+        if (!$this->compile)
+        {
+            throw new \InvalidArgumentException('Set compile directory!');
         }
 
         return $this->compile;
@@ -243,9 +248,14 @@ class Configure
      */
     public function template($path = null)
     {
-        if (!$this->template)
+        if ($path)
         {
             $this->template = $this->createDirectory($path);
+        }
+
+        if (!$this->template)
+        {
+            throw new \InvalidArgumentException('Set template directory!');
         }
 
         return $this->template;

@@ -21,7 +21,28 @@ class TForeach extends FlowFunction
             array_shift($this->data);
         }
 
-        $variable = array_shift($this->data);
+        $implode = implode($this->data);
+
+        preg_match(sprintf('~from=(?<from>%s)~', self::REGEXP_VARIABLE), $implode, $from);
+        preg_match(sprintf('~key=(?<key>%s)~', self::REGEXP_CALLBACK), $implode, $key);
+        preg_match(sprintf('~item=(?<item>%s)~', self::REGEXP_CALLBACK), $implode, $item);
+        preg_match(sprintf('~name=(?<name>%s)~', self::REGEXP_CALLBACK), $implode, $name);
+
+        $regExp = true;
+
+        if (!empty($from['from']))
+        {
+            $variable                 = $from['from'];
+            $matches['variable']      = $variable;
+            $matches['item']          = empty($item['item']) ? '' : '$' . $item['item'];
+            $matches['key']           = empty($key['key']) ? '' : '$' . $key['key'];
+            self::$name[self::$level] = $name['name'];
+            $regExp                   = false;
+        }
+        else
+        {
+            $variable = array_shift($this->data);
+        }
 
         if ($variable{0} !== '$')
         {
@@ -34,15 +55,20 @@ class TForeach extends FlowFunction
         $if   = sprintf('<?php if (!empty(%s)): ?>', $variable);
         $init = '';
 
-        $regExp = sprintf(
-            '~(?<variable>%s) as (?<key>%s)? ?=?>? ?(?<item>%s)~',
-            self::REGEXP_VARIABLE,
-            self::REGEXP_VARIABLE,
-            self::REGEXP_VARIABLE
-        );
+        if ($regExp)
+        {
 
-        preg_match($regExp, $variable . implode($this->data), $matches);
-        unset($variable);
+            $regExp = sprintf(
+                '~(?<variable>%s) as (?<key>%s)? ?=?>? ?(?<item>%s)~',
+                self::REGEXP_VARIABLE,
+                self::REGEXP_VARIABLE,
+                self::REGEXP_VARIABLE
+            );
+
+            preg_match($regExp, $variable . implode($this->data), $matches);
+            unset($variable);
+
+        }
 
         if (empty($matches['variable']))
         {

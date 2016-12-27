@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>{$title|default:'Not title'}</title>
-        <script src="/js/helper-{$id|default:'5'}.js"></script>
+        <script src="/js/helper-{$id|default:5}.js"></script>
         <script src='/js/helper-{$id}.js'></script>
         <script>
             'use strict';
@@ -10,7 +10,10 @@
             var storage = {$storage|json_encode};
         </script>
     </head>
-    <body class="{$classBody}">
+    {assign classBody 'mySelf'}
+    <body class="{$classBody|default:"classBody"}">
+
+        {block 'hello'}<h1>my block</h1>{/block}
 
         {printBlock "hello" "Hello World"}<br/>
 
@@ -35,6 +38,12 @@
         {foreach:foo $storage as $item}
             {$item}
             {foreach $storage as $item}{/foreach}
+            {foreachelse}
+            Нет данных
+        {/foreach}
+
+        {foreach name=test from=$storage item=item}
+            {$this->foreach->test|var_dump}
         {foreachelse}
             Нет данных
         {/foreach}
@@ -42,6 +51,7 @@
         <p>total: {$this->foreach->foo->total}</p>
 
         {include "ux/content"}
+        {include file="ux/content"}
         {partial "ux/content.tpl"}
         {literal}
             {partial "ux/content.tpl"}

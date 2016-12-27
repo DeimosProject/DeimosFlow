@@ -8,12 +8,19 @@ class TVariable extends FlowFunction
 {
 
     /**
+     * @var array
+     */
+    protected $attributes = [];
+
+    /**
      * @param $variable
      *
      * @return string
      */
     protected function variable($variable)
     {
+        $variable = preg_replace('~(\$)(.*)\.([\w-_]+)~', '$1$2[\'$3\']', $variable);
+
         return trim($variable, '"\' ');
     }
 
@@ -22,8 +29,10 @@ class TVariable extends FlowFunction
      */
     protected function callback()
     {
-        $callback   = '';
-        $isCallback = array_shift($this->data) === '|';
+        $callback    = '';
+        $isCallback  = array_shift($this->data) === '|';
+        $isAttribute = false;
+        $iteration   = 0;
 
         foreach ($this->data as $dataValue)
         {
@@ -32,12 +41,28 @@ class TVariable extends FlowFunction
 
                 if ($dataValue === ':')
                 {
-                    break;
+                    $isAttribute = true;
+                    $isCallback  = false;
+                    continue;
                 }
 
                 $callback .= $dataValue;
-
                 continue;
+            }
+            else if ($isAttribute)
+            {
+                if ($dataValue === ':')
+                {
+                    $iteration++;
+                    continue;
+                }
+
+                if (empty($this->attributes[$iteration]))
+                {
+                    $this->attributes[$iteration] = '';
+                }
+
+                $this->attributes[$iteration] .= $dataValue;
             }
 
             $isCallback = $dataValue === '|';
@@ -51,7 +76,6 @@ class TVariable extends FlowFunction
 
         $data = implode($this->data);
         preg_match('~(?<variable>' . self::REGEXP_VARIABLE . ')~', $data, $variable);
-        preg_match_all('~:(?<attributes>' . self::REGEXP_VARIABLE . '|[\w"\s\']+)~', $data, $attributes);
 
         if (empty($variable['variable']))
         {
@@ -59,12 +83,10 @@ class TVariable extends FlowFunction
         }
         else
         {
-            $variable = preg_replace('~([\w]+)\.([\w]+)~', '$1[\'$2\']', $variable['variable']);
+            $variable = $variable['variable'];
         }
 
         $variable = $this->variable($variable);
-
-        $attributes = $attributes['attributes'];
 
         $callback = $this->callback();
 
@@ -80,14 +102,14 @@ class TVariable extends FlowFunction
             $storage = sprintf(
                 '(empty(%s)?$this->configure->di()->escape(%s):$this->configure->di()->escape(%s))',
                 $variable,
-                array_shift($attributes),
+                array_shift($this->attributes),
                 $variable
             );
         }
         else
         {
             $storage = '$this->configure->di()->call(\'' . $callback . '\', ';
-            $export  = var_export(array_merge([$variable], $attributes), true);
+            $export  = var_export(array_merge([$variable], $this->attributes), true);
             $regExp  = sprintf('~\'(%s)\'~', self::REGEXP_VARIABLE);
             $export  = preg_replace($regExp, '$1', $export);
             $storage .= str_replace(["\n", "\r"], '', $export) . ')';

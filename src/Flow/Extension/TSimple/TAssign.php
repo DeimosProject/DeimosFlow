@@ -51,12 +51,7 @@ class TAssign extends FlowFunction
     {
         $this->init();
 
-        return
-            '<?php $this->configure->setVariable(\'' .
-            $this->variable . '\', ' . $this->value .
-            '); $' . $this->variable . ' = $this->configure->getVariable(\'' .
-            $this->variable
-            . '\'); ?>';
+        return '<?php $' . $this->variable . ' = ' . $this->value . '; ?>';
     }
 
 }
