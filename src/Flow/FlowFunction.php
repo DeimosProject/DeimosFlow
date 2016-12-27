@@ -38,6 +38,18 @@ abstract class FlowFunction
     }
 
     /**
+     * @param $variable
+     *
+     * @return string
+     */
+    protected function variable($variable)
+    {
+        $variable = preg_replace('~(\$)(.*)\.([\w-_]+)~', '$1$2[\'$3\']', $variable);
+
+        return trim($variable, '"\' ');
+    }
+
+    /**
      * @return int
      */
     public function random()

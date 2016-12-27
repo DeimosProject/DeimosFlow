@@ -22,7 +22,11 @@
         <h2>{'hello'}</h2>
         <h2>{"hello"|substr:0:3}</h2>
 
-        {$array.0|default:'world'}
+        {assign length 13}
+
+        {'Flow Template!'|substr:0:-2}
+
+        {*{$array.hello|default:'My Self'}*}
         <h3>{$hello|default:'test'}</h3>
 
         <?php foreach ($storage as $item): ?>

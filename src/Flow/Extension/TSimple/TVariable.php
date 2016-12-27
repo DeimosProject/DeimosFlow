@@ -13,18 +13,6 @@ class TVariable extends FlowFunction
     protected $attributes = [];
 
     /**
-     * @param $variable
-     *
-     * @return string
-     */
-    protected function variable($variable)
-    {
-        $variable = preg_replace('~(\$)(.*)\.([\w-_]+)~', '$1$2[\'$3\']', $variable);
-
-        return trim($variable, '"\' ');
-    }
-
-    /**
      * @return string
      */
     protected function callback()
@@ -75,7 +63,7 @@ class TVariable extends FlowFunction
     {
 
         $data = implode($this->data);
-        preg_match('~(?<variable>' . self::REGEXP_VARIABLE . ')~', $data, $variable);
+        preg_match('~^(?<variable>' . self::REGEXP_VARIABLE . ')~', $data, $variable);
 
         if (empty($variable['variable']))
         {
@@ -112,6 +100,7 @@ class TVariable extends FlowFunction
             $export  = var_export(array_merge([$variable], $this->attributes), true);
             $regExp  = sprintf('~\'(%s)\'~', self::REGEXP_VARIABLE);
             $export  = preg_replace($regExp, '$1', $export);
+            $export  = preg_replace('~\'(-?[\d\.]+)\'~', '$1', $export);
             $storage .= str_replace(["\n", "\r"], '', $export) . ')';
         }
 

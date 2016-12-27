@@ -8,6 +8,9 @@ class TELSEIF extends FlowFunction
 {
     public function view()
     {
-        return sprintf('<?php elseif (%s): ?>', implode($this->data));
+        $storage = implode($this->data);
+        $storage = $this->variable($storage);
+
+        return sprintf('<?php elseif (%s): ?>', $storage);
     }
 }

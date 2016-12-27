@@ -22,8 +22,11 @@
         <h2><?php echo $this->configure->di()->call('escape', array (  0 => 'hello',)); ?></h2>
         <h2><?php echo $this->configure->di()->call('substr', array (  0 => 'hello',  1 => '0',  2 => '3',)); ?></h2>
 
-        <?php echo (empty($array['0'])?$this->configure->di()->escape('world'):$this->configure->di()->escape($array['0'])); ?>
-        <h3><?php echo (empty($hello)?$this->configure->di()->escape('test'):$this->configure->di()->escape($hello)); ?></h3>
+        <?php $length = 13; ?>
+
+        <?php echo $this->configure->di()->call('substr', array (  0 => 'Flow Template!',  1 => '0',  2 => '-2',)); ?>
+
+<h3><?php echo (empty($hello)?$this->configure->di()->escape('test'):$this->configure->di()->escape($hello)); ?></h3>
 
         <!--  foreach ($storage as $item):  -->
             <!-- $item; -->
@@ -35,14 +38,14 @@
         <?php echo $this->configure->di()->call('json.encode', array (  0 => $storage,)); ?><br/>
         <font color="green"><?php echo $this->configure->di()->call('count', array (  0 => $storage,)); ?></font><br/>
 
-        <?php if (!empty($storage)): ?> <?php $this->foreach->register('foo', $storage); ?><?php foreach ($storage as $key51183003058358540527974300479489927114 => $item): $this->foreach->foo($key51183003058358540527974300479489927114); ?>
+        <?php if (!empty($storage)): ?> <?php $this->foreach->register('foo', $storage); ?><?php foreach ($storage as $key86720236459422286914744796592825050451 => $item): $this->foreach->foo($key86720236459422286914744796592825050451); ?>
             <?php echo $this->configure->di()->call('escape', array (  0 => $item,)); ?>
-            <?php if (!empty($storage)): ?><?php foreach ($storage as $key7935850299604754126490036512678129753 => $item):  ?><?php endforeach;  endif; ?>
+            <?php if (!empty($storage)): ?><?php foreach ($storage as $key78304293667442956036741800080705282975 => $item):  ?><?php endforeach;  endif; ?>
             <?php endforeach;  else: ?>
             Нет данных
         <?php endif; ?>
 
-        <?php if (!empty($storage)): ?> <?php $this->foreach->register('test', $storage); ?><?php foreach ($storage as $key5709433120764117646584460542234126500 => $item): $this->foreach->test($key5709433120764117646584460542234126500); ?>
+        <?php if (!empty($storage)): ?> <?php $this->foreach->register('test', $storage); ?><?php foreach ($storage as $key64383495641887302785064363207277021768 => $item): $this->foreach->test($key64383495641887302785064363207277021768); ?>
             <?php echo $this->configure->di()->call('var_dump', array (  0 => $this->foreach->test,)); ?>
         <?php endforeach;  else: ?>
             Нет данных

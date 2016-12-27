@@ -8,6 +8,11 @@ class TIF extends FlowFunction
 {
     public function view()
     {
-        return sprintf('<?php if (%s): ?>', implode($this->data));
+        array_shift($this->data);
+
+        $storage = implode($this->data);
+        $storage = $this->variable($storage);
+
+        return sprintf('<?php if (%s): ?>', $storage);
     }
 }
