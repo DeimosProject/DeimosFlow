@@ -6,6 +6,11 @@ class Lexer
 {
 
     /**
+     * @var Configure $configure
+     */
+    protected $configure;
+
+    /**
      * @var array
      */
     protected $data = [
@@ -58,6 +63,16 @@ class Lexer
         LexerConst::T_BLOCK_END   => Extension\TBlock\TEndBlock::class,
 
     ];
+
+    /**
+     * Lexer constructor.
+     *
+     * @param Configure $configure
+     */
+    public function __construct(Configure $configure)
+    {
+        $this->configure = $configure;
+    }
 
     /**
      * @param $key

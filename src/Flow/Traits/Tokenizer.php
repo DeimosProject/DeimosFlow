@@ -150,7 +150,7 @@ trait Tokenizer
      */
     protected function commandParser(Flow $flow, Configure $configure, array $commands)
     {
-        $lexer = new Lexer();
+        $lexer = new Lexer($configure);
 
         list ($command, $commands) = $this->commandRef($commands);
 
