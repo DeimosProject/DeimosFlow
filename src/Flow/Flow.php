@@ -222,6 +222,15 @@ class Flow
      */
     public function __set($name, $value)
     {
+        $this->assign($name, $value);
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     */
+    public function assign($name, $value)
+    {
         $this->configure->setVariable($name, $value);
     }
 
