@@ -21,7 +21,7 @@ class TBlockStart extends FlowFunction
             }
         }
 
-        return '<?php $this->configure->block()->start(' . implode(', ', $values) . '); ?>';
+        return '<?php $this->configure->block()->start($this, ' . implode(', ', $values) . '); ?>';
     }
 
 }

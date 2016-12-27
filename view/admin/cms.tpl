@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{$title|default:'Not title'}</title>
+        <title>{block 'title' prepend}{$title|default:'CMS'} {/block}</title>
         <script src="/js/helper-{$id|default:5}.js"></script>
         <script src='/js/helper-{$id}.js'></script>
         <script>
@@ -13,9 +13,7 @@
     {assign classBody 'mySelf'}
     <body class="{$classBody|default:"classBody"}">
 
-        {block 'hello'}<h1>my block</h1>{/block}
-
-        {printBlock "hello" "Hello World"}<br/>
+        <h1>{block "hello" prepend}Hello {/block}</h1>
 
         {$content}
 

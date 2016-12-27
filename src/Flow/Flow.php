@@ -363,8 +363,8 @@ class Flow
 
         foreach ($extends30c471f6aAfBcA7085640653ee as $extend30c471f6aAfBcA7085640653ee)
         {
-            $result30c471f6aAfBcA7085640653ee .= (new static($this->configure))
-                ->render($extend30c471f6aAfBcA7085640653ee);
+            $result30c471f6aAfBcA7085640653ee = (new static($this->configure))
+                ->render($extend30c471f6aAfBcA7085640653ee) . $result30c471f6aAfBcA7085640653ee;
         }
 
         return $result30c471f6aAfBcA7085640653ee;

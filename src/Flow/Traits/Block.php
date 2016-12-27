@@ -2,8 +2,16 @@
 
 namespace Deimos\Flow\Traits;
 
+use Deimos\Flow\Configure;
+use Deimos\Flow\Flow;
+
 trait Block
 {
+
+    /**
+     * @var Configure
+     */
+    protected $configure;
 
     /**
      * @var array
@@ -16,9 +24,14 @@ trait Block
     protected $lastName;
 
     /**
-     * @var
+     * @var string
      */
     protected $type;
+
+    /**
+     * @var string
+     */
+    protected $selectView;
 
     /**
      * @var bool
@@ -26,14 +39,16 @@ trait Block
     protected $isStarted;
 
     /**
+     * @param Flow   $flow
      * @param string $name
      * @param string $type
      */
-    public function start($name, $type = 'inner')
+    public function start($flow, $name, $type = 'inner')
     {
-        $this->isStarted = true;
-        $this->lastName  = $name;
-        $this->type      = $type;
+        $this->isStarted  = true;
+        $this->lastName   = $name;
+        $this->selectView = $flow->selectView();
+        $this->type       = $type;
         ob_start();
     }
 
@@ -53,6 +68,9 @@ trait Block
 
         if ($this->type === 'inner' || empty($this->blocks[$this->lastName]))
         {
+
+            $this->display();
+
             $this->blocks[$this->lastName] = $result;
         }
         else
@@ -65,26 +83,33 @@ trait Block
 
             if ($this->type === 'prepend')
             {
-                $this->blocks[$this->lastName] = $result . $this->blocks[$this->lastName];
+                $this->blocks[$this->lastName]
+                    = $result . $this->blocks[$this->lastName];
             }
+
+            $this->display();
 
         }
 
     }
 
-    /**
-     * @param string $name
-     * @param string $default
-     *
-     * @return string
-     */
-    public function display($name, $default = '')
+    protected function display()
     {
-        if (empty($this->blocks[$name]))
+        if (!empty($this->configure->getExtendsAll($this->selectView)))
         {
-            return $default;
-        }
+            echo $this->getBlock($this->lastName);
 
+            return;
+        }
+    }
+
+    /**
+     * @param $name
+     *
+     * @return mixed
+     */
+    public function getBlock($name)
+    {
         return $this->blocks[$name];
     }
 

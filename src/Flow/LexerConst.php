@@ -30,5 +30,4 @@ class LexerConst
     const T_EXTENDS      = 'extends';       // extends
     const T_BLOCK_START  = 'block';         // block
     const T_BLOCK_END    = '/block';
-    const T_BLOCK        = 'printBlock';
 }

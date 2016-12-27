@@ -58,7 +58,6 @@ class Lexer
         LexerConst::T_PARTIAL      => Extension\TSimple\TPartial::class,
 
         // block
-        LexerConst::T_BLOCK        => Extension\TBlock\TBlock::class,
         LexerConst::T_BLOCK_START  => Extension\TBlock\TBlockStart::class,
         LexerConst::T_BLOCK_END    => Extension\TBlock\TEndBlock::class,
 

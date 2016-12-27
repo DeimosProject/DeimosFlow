@@ -45,6 +45,11 @@ class Configure
     protected $extends = [];
 
     /**
+     * @var array
+     */
+    protected $extendsAll = [];
+
+    /**
      * @var bool
      */
     protected $phpEnable = false;
@@ -94,7 +99,7 @@ class Configure
     {
         if (!$this->block)
         {
-            $this->block = new Block();
+            $this->block = new Block($this);
         }
 
         return $this->block;
@@ -211,9 +216,26 @@ class Configure
             $this->extends[$view] = [];
         }
 
-        $this->extends[$view][] = $path;
+        $this->extends[$view][]  = $path;
+        $this->extendsAll[$view] = false;
+        $this->extendsAll[$path] = true;
 
         return $this->extends[$view];
+    }
+
+    /**
+     * @param $view
+     *
+     * @return array
+     */
+    public function getExtendsAll($view)
+    {
+        if (isset($this->extendsAll[$view]))
+        {
+            return $this->extendsAll[$view];
+        }
+
+        return [];
     }
 
     /**

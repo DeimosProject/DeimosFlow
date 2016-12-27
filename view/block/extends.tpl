@@ -1,4 +1,4 @@
 {extends 'admin/cms'}
-{block 'hello'}
-    <h1>Hello Flow!</h1>
-{/block}
+<h3>{"Extends"}</h3>
+{block 'title' append}- Extends{/block}
+{block 'hello' append}Flow!{/block}
