@@ -170,6 +170,16 @@ class Flow
         return preg_replace('~(\?>)~', ' -->', $view);
     }
 
+    protected function literal($view)
+    {
+        return preg_replace_callback('~{literal\s*}((\n|.)*){/literal}~', function ($matches)
+        {
+            $literal = new Extension\TLiteral\TLiteral($this, $this->configure, [$matches[1]]);
+
+            return $literal->view();
+        }, $view);
+    }
+
     /**
      * @return mixed|string
      *
@@ -179,6 +189,7 @@ class Flow
     {
         $compile = $this->removeComments($this->curView());
         $compile = $this->removePhpTags($compile);
+        $compile = $this->literal($compile);
 
         foreach ($this->tokens($compile) as $command)
         {

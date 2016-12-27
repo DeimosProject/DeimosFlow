@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {$object|var_dump}
-        {$object->hello|var_dump:my:name}
-        <?php echo $title; ?>
-        {*<title>{$title|_}</title>*}
-        {assign names ["Bob", "Max"]}
         <title>{$title|default:'Not title'}</title>
         <script src="/js/helper-{$id|default:'5'}.js"></script>
         <script src='/js/helper-{$id}.js'></script>
@@ -20,6 +15,12 @@
         {printBlock "hello" "Hello World"}<br/>
 
         {$content}
+
+        <h2>{'hello'}</h2>
+        <h2>{"hello"|substr:0:3}</h2>
+
+        {$array.0|default:'world'}
+        <h3>{$hello|default:'test'}</h3>
 
         <?php foreach ($storage as $item): ?>
             <?=$item;?>
@@ -42,6 +43,9 @@
 
         {include "ux/content"}
         {partial "ux/content.tpl"}
+        {literal}
+            {partial "ux/content.tpl"}
+        {/literal}
 
     </body>
 </html>
