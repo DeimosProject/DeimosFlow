@@ -9,7 +9,15 @@ class TForeach extends FlowFunction
 
     public function view()
     {
-        array_shift($this->data);
+        $name      = null;
+        $separator = array_shift($this->data);
+
+        if ($separator === ':')
+        {
+            $name = array_shift($this->data);
+            array_shift($this->data);
+        }
+
         $variable = array_shift($this->data);
 
         if ($variable{0} !== '$')
@@ -20,10 +28,35 @@ class TForeach extends FlowFunction
             );
         }
 
-        array_shift($this->data);
+        $if   = sprintf('<?php if (!empty(%s)): ?>', $variable);
+        $init = '';
 
-        $if      = sprintf('<?php if (!empty(%s)): ?>', $variable);
-        $foreach = sprintf('<?php foreach (%s %s): ?>', $variable, implode($this->data));
+        $storage = [];
+        foreach ($this->data as $value)
+        {
+            if (!in_array($value, [' ', 'as', '=>'], true))
+            {
+                $storage[] = $value;
+            }
+        }
+
+        if (count($storage) === 2)
+        {
+            list ($key, $value) = $storage;
+        }
+        else
+        {
+            $key   = '$key' . $this->random() . $this->random();
+            $value = current($storage);
+        }
+
+        if ($name)
+        {
+            $if .= ' <?php $this->foreach->register(\'' . $name . '\', ' . $variable . '); ?>';
+            $init = '$this->foreach->' . $name . '(' . $key . ');';
+        }
+
+        $foreach = sprintf('<?php foreach (%s as %s => %s): %s ?>', $variable, $key, $value, $init);
 
         return $if . $foreach;
     }

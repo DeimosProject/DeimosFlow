@@ -11,6 +11,11 @@ abstract class FlowFunction
     public $data;
 
     /**
+     * @var Flow
+     */
+    public $flow;
+
+    /**
      * @var Configure
      */
     public $configure;
@@ -18,13 +23,28 @@ abstract class FlowFunction
     /**
      * FlowFunction constructor.
      *
+     * @param Flow      $flow
      * @param Configure $configure
      * @param array     $data
      */
-    public function __construct(Configure $configure, array $data)
+    public function __construct(Flow $flow, Configure $configure, array $data)
     {
+        $this->flow      = $flow;
         $this->configure = $configure;
         $this->data      = $data;
+    }
+
+    /**
+     * @return int
+     */
+    public function random()
+    {
+        if (function_exists('random_int'))
+        {
+            return random_int(0, PHP_INT_MAX);
+        }
+
+        return mt_rand(0, PHP_INT_MAX);
     }
 
     abstract public function view();

@@ -17,20 +17,6 @@
     </head>
     <body class="{$classBody}">
 
-        {*{block "hello"}*}
-            {*<h1>Hello world1</h1>*}
-        {*{/block}*}
-
-        {*{block "hello" prepend}*}
-            {*<h1>Hello world2</h1>*}
-        {*{/block}*}
-
-        {*{block "hello" append}*}
-            {*<h1>Hello world3</h1>*}
-        {*{/block}*}
-
-        {"hello"|substr:0:3}
-
         {printBlock "hello" "Hello World"}<br/>
 
         {$content}
@@ -45,8 +31,11 @@
         {$storage|json.encode}<br/>
         <font color="green">{$storage|count}</font><br/>
 
-        {foreach $storage as $key => $item}
-            {$item}
+        {foreach:foo $storage as $mySuperKey => $item}
+            {*{$item}*}
+            {*{$this->foreach->foo|var_dump}*}
+            [{$this->foreach->foo->value}]
+            {$storage[$this->foreach->foo->key]}
         {foreachelse}
             Нет данных
         {/foreach}

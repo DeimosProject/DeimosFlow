@@ -18,6 +18,9 @@ class LexerConst
     const T_WHILE     = 'while';
     const T_END_WHILE = '/while';
 
+    const T_CONTINUE = 'continue';
+    const T_BREAK    = 'break';
+
     // if|else|elseif
     const T_IF     = 'if';
     const T_ELSE   = 'else';
@@ -39,6 +42,9 @@ class LexerConst
 
     // partial
     const T_PARTIAL = 'partial';
+
+    // extends
+    const T_EXTENDS = 'extends';
 
     // partial
     const T_BLOCK_START = 'block';

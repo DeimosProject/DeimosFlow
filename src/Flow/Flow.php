@@ -31,6 +31,11 @@ class Flow
     protected $curView;
 
     /**
+     * @var FlowForeach
+     */
+    public $foreach;
+
+    /**
      * Flow constructor.
      *
      * @param Configure $configure
@@ -38,6 +43,8 @@ class Flow
     public function __construct(Configure $configure)
     {
         $this->configure = $configure;
+
+        $this->foreach = new FlowForeach();
     }
 
     /**
@@ -55,6 +62,14 @@ class Flow
             $this->viewPath = $this->configure->template() . $view . $this->configure->ext();
         }
 
+        return $this->view;
+    }
+
+    /**
+     * @return string
+     */
+    public function selectView()
+    {
         return $this->view;
     }
 
@@ -124,7 +139,7 @@ class Flow
         {
             $tokens[$command] = $this->configure
                 ->tokenizer()
-                ->commandLexer($this->configure, $command);
+                ->commandLexer($this, $this->configure, $command);
         }
 
         return $tokens;
@@ -211,7 +226,7 @@ class Flow
      *
      * @throws \InvalidArgumentException
      */
-    public function parseWithoutFullPath($view)
+    public function checkView($view)
     {
         $this->view($view);
 
@@ -235,7 +250,7 @@ class Flow
      */
     public function parse($view)
     {
-        $fullPath  = $this->parseWithoutFullPath($view);
+        $fullPath  = $this->checkView($view);
         $cachePath = realpath($this->configure->compile());
 
         $path = str_replace($cachePath, '', $fullPath);
@@ -252,7 +267,7 @@ class Flow
      */
     public function render($view)
     {
-        $parse30c471f6aAfBcA7085640653ee = $this->parseWithoutFullPath($view);
+        $parse30c471f6aAfBcA7085640653ee = $this->checkView($view);
         unset($view);
 
         extract($this->configure->getVariables(), EXTR_REFS);
@@ -260,7 +275,17 @@ class Flow
         ob_start();
         require $parse30c471f6aAfBcA7085640653ee;
 
-        return ob_get_clean();
+        $result30c471f6aAfBcA7085640653ee = ob_get_clean();
+
+        $extends30c471f6aAfBcA7085640653ee = $this->configure->getExtendsFile($this->selectView(), true);
+
+        foreach ($extends30c471f6aAfBcA7085640653ee as $extend30c471f6aAfBcA7085640653ee)
+        {
+            $result30c471f6aAfBcA7085640653ee .= (new static($this->configure))
+                ->render($extend30c471f6aAfBcA7085640653ee);
+        }
+
+        return $result30c471f6aAfBcA7085640653ee;
     }
 
 }

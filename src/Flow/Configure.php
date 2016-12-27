@@ -40,6 +40,11 @@ class Configure
     protected $ext = 'tpl';
 
     /**
+     * @var array
+     */
+    protected $extends = [];
+
+    /**
      * @var bool
      */
     protected $phpEnable = false;
@@ -71,6 +76,11 @@ class Configure
     {
         if (!$this->di)
         {
+            if (!$di)
+            {
+                $di = new DefaultContainer();
+            }
+
             $this->di = $di;
         }
 
@@ -178,6 +188,50 @@ class Configure
         $flow = new Flow($this);
 
         return $flow->render($path);
+    }
+
+
+    /**
+     * @param string $view
+     * @param string $path
+     *
+     * @return array
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function extendsFile($view, $path)
+    {
+        if (!isset($this->extends[$view]))
+        {
+            $this->extends[$view] = [];
+        }
+
+        $this->extends[$view][] = $path;
+
+        return $this->extends[$view];
+    }
+
+    /**
+     * @param string $view
+     * @param bool   $remove
+     *
+     * @return array
+     */
+    public function getExtendsFile($view, $remove = false)
+    {
+        if (isset($this->extends[$view]))
+        {
+            $data = $this->extends[$view];
+
+            if ($remove)
+            {
+                unset($this->extends[$view]);
+            }
+
+            return $data;
+        }
+
+        return [];
     }
 
     /**

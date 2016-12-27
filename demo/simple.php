@@ -7,8 +7,6 @@ $configure = new Deimos\Flow\Configure();
 $configure->compile(dirname(__DIR__) . '/cache');
 $configure->template(dirname(__DIR__) . '/view');
 
-$configure->di(new \Deimos\Flow\DefaultContainer());
-
 $flow = new Deimos\Flow\Flow($configure);
 
 $flow->content = 'Have fun code!';

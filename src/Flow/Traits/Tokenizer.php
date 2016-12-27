@@ -3,6 +3,7 @@
 namespace Deimos\Flow\Traits;
 
 use Deimos\Flow\Configure;
+use Deimos\Flow\Flow;
 use Deimos\Flow\FlowFunction;
 use Deimos\Flow\Lexer;
 use Deimos\Flow\LexerConst;
@@ -47,6 +48,7 @@ trait Tokenizer
     }
 
     /**
+     * @param Flow      $flow
      * @param Configure $configure
      * @param           $source
      *
@@ -54,14 +56,13 @@ trait Tokenizer
      *
      * @throws \InvalidArgumentException
      */
-    public function commandLexer(Configure $configure, $source)
+    public function commandLexer(Flow $flow, Configure $configure, $source)
     {
         $source = preg_replace('~([\s\t]+)~', ' ', $source);
 
         $commandParser = $this->parseText($source);
-        $lexer         = new Lexer();
 
-        return $this->commandParser($lexer, $configure, $commandParser);
+        return $this->commandParser($flow, $configure, $commandParser);
     }
 
     /**
@@ -106,6 +107,29 @@ trait Tokenizer
                 array_shift($commands);
             }
 
+            if ($test === '[')
+            {
+                $command .= $test;
+                $squareBrackets = 1;
+                while ($squareBrackets)
+                {
+                    $test = array_shift($commands);
+
+                    switch ($test)
+                    {
+                        case ']':
+                            $squareBrackets--;
+                            break;
+
+                        case '[':
+                            $squareBrackets++;
+                            break;
+                    }
+
+                    $command .= $test;
+                }
+            }
+
             foreach ($commands as $key => $value)
             {
                 $commands[$key] = $this->value($value);
@@ -116,7 +140,7 @@ trait Tokenizer
     }
 
     /**
-     * @param Lexer     $lexer
+     * @param Flow      $flow
      * @param Configure $configure
      * @param array     $commands
      *
@@ -124,8 +148,10 @@ trait Tokenizer
      *
      * @throws \InvalidArgumentException
      */
-    protected function commandParser(Lexer $lexer, Configure $configure, array $commands)
+    protected function commandParser(Flow $flow, Configure $configure, array $commands)
     {
+        $lexer = new Lexer();
+
         list ($command, $commands) = $this->commandRef($commands);
 
         if (in_array($command{0}, ['$', '\'', '"'], true))
@@ -141,7 +167,7 @@ trait Tokenizer
         /**
          * @var $object FlowFunction
          */
-        $object = new $class($configure, $commands);
+        $object = new $class($flow, $configure, $commands);
 
         return $object->view();
     }
