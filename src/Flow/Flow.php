@@ -256,9 +256,9 @@ class Flow
      */
     protected function compile()
     {
-        $compile = $this->literal($this->curView());
-        $compile = $this->removeComments($compile);
+        $compile = $this->removeComments($this->curView());
         $compile = $this->removePhpTags($compile);
+        $compile = $this->literal($compile);
 
         foreach ($this->lexer($compile) as $command)
         {
@@ -373,25 +373,25 @@ class Flow
     {
         $rand = $this->random();
 
-        ${'parse' . $rand} = $this->checkView($view);
+        ${'____parse' . $rand} = $this->checkView($view);
         unset($view);
 
         extract($this->configure->getVariables(), EXTR_REFS);
 
         ob_start();
-        require ${'parse' . $rand};
+        require ${'____parse' . $rand};
 
-        ${'result' . $rand} = ob_get_clean();
+        ${'____result' . $rand} = ob_get_clean();
 
-        ${'extends' . $rand} = $this->configure->getExtendsFile($this->selectView(), true);
+        ${'____extends' . $rand} = $this->configure->getExtendsFile($this->selectView(), true);
 
-        foreach (${'extends' . $rand} as ${'extend' . $rand})
+        foreach (${'____extends' . $rand} as ${'____extend' . $rand})
         {
-            ${'result' . $rand} = (new static($this->configure))
-                ->render(${'extend' . $rand}) . ${'result' . $rand};
+            ${'____result' . $rand} = (new static($this->configure))
+                ->render(${'____extend' . $rand}) . ${'____result' . $rand};
         }
 
-        return ${'result' . $rand};
+        return ${'____result' . $rand};
     }
 
 }
