@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Deimos\Flow\Lexer</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Deimos.html">
+						Deimos<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Deimos.Flow.html">
+						Flow<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.html">
+						Extension<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TBlock.html">
+						TBlock					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TFor.html">
+						TFor					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TForeach.html">
+						TForeach					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TIF.html">
+						TIF					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TLiteral.html">
+						TLiteral					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TPHP.html">
+						TPHP					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TSimple.html">
+						TSimple					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TTry.html">
+						TTry					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TWhile.html">
+						TWhile					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Deimos.Flow.Traits.html">
+						Traits					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Deimos.Flow.Block.html">Block</a></li>
+				<li><a href="class-Deimos.Flow.Configure.html">Configure</a></li>
+				<li><a href="class-Deimos.Flow.DefaultConfig.html">DefaultConfig</a></li>
+				<li><a href="class-Deimos.Flow.DefaultContainer.html">DefaultContainer</a></li>
+				<li><a href="class-Deimos.Flow.Flow.html">Flow</a></li>
+				<li><a href="class-Deimos.Flow.FlowForeach.html">FlowForeach</a></li>
+				<li><a href="class-Deimos.Flow.FlowFunction.html">FlowFunction</a></li>
+				<li><a href="class-Deimos.Flow.ForeachState.html">ForeachState</a></li>
+				<li class="active"><a href="class-Deimos.Flow.Lexer.html">Lexer</a></li>
+				<li><a href="class-Deimos.Flow.LexerConst.html">LexerConst</a></li>
+				<li><a href="class-Deimos.Flow.Tokenizer.html">Tokenizer</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Deimos.Flow.html" title="Summary of Deimos\Flow"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Lexer</h1>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Deimos.html">Deimos</a>\<a href="namespace-Deimos.Flow.html">Flow</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Deimos.Flow.Lexer.html#5-99" title="Go to source code">Flow/Lexer.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Deimos.Flow.Lexer.html#72-80" title="Go to source code">__construct</a>( <span><code><a href="class-Deimos.Flow.Configure.html">Deimos\Flow\Configure</a></code> <var>$configure</var></span> )</code>
+
+		<div class="description short">
+			<p>Lexer constructor.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Lexer constructor.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$configure</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-Deimos.Flow.Lexer.html#82-97" title="Go to source code">get</a>( <span> <var>$key</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="configure" id="$configure">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Deimos.Flow.Configure.html">Deimos\Flow\Configure</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Deimos.Flow.Lexer.html#8-11" title="Go to source code"><var>$configure</var></a>
+
+			<div class="description short">
+				<p>$configure</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>$configure</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$configure" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="data" id="$data">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Deimos.Flow.Lexer.html#13-70" title="Go to source code"><var>$data</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$data" class="anchor">#</a>
+				<code>[
+
+    <span class="php-comment">// if</span>
+    LexerConst::T_IF           =&gt; Extension\TIF\TIF::<span class="php-keyword1">class</span>,
+    LexerConst::T_ELSEIF       =&gt; Extension\TIF\TELSEIF::<span class="php-keyword1">class</span>,
+    LexerConst::T_ELSE         =&gt; Extension\TIF\TELSE::<span class="php-keyword1">class</span>,
+    LexerConst::T_END_IF       =&gt; Extension\TIF\TEndIF::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// for</span>
+    LexerConst::T_FOR          =&gt; Extension\TFor\TFor::<span class="php-keyword1">class</span>,
+    LexerConst::T_END_FOR      =&gt; Extension\TFor\TEndFor::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// while</span>
+    LexerConst::T_WHILE        =&gt; Extension\TWhile\TWhile::<span class="php-keyword1">class</span>,
+    LexerConst::T_END_WHILE    =&gt; Extension\TWhile\TEndWhile::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// foreach</span>
+    LexerConst::T_FOREACH      =&gt; Extension\TForeach\TForeach::<span class="php-keyword1">class</span>,
+    LexerConst::T_FOREACH_ELSE =&gt; Extension\TForeach\TElseForeach::<span class="php-keyword1">class</span>,
+    LexerConst::T_END_FOREACH  =&gt; Extension\TForeach\TEndForeach::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// operators</span>
+    LexerConst::T_CONTINUE     =&gt; Extension\TSimple\TContinue::<span class="php-keyword1">class</span>,
+    LexerConst::T_BREAK        =&gt; Extension\TSimple\TBreak::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// PHP</span>
+    LexerConst::T_PHP          =&gt; Extension\TPHP\TPHP::<span class="php-keyword1">class</span>,
+    LexerConst::T_END_PHP      =&gt; Extension\TPHP\TEndPHP::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// ASSIGN</span>
+    LexerConst::T_ASSIGN       =&gt; Extension\TSimple\TAssign::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// variable</span>
+    LexerConst::T_VARIABLE     =&gt; Extension\TSimple\TVariable::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// include</span>
+    LexerConst::T_INCLUDE      =&gt; Extension\TSimple\TInclude::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// extends</span>
+    LexerConst::T_EXTENDS      =&gt; Extension\TSimple\TExtends::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// partial</span>
+    LexerConst::T_PARTIAL      =&gt; Extension\TSimple\TPartial::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// block</span>
+    LexerConst::T_BLOCK_START  =&gt; Extension\TBlock\TBlockStart::<span class="php-keyword1">class</span>,
+    LexerConst::T_BLOCK_END    =&gt; Extension\TBlock\TEndBlock::<span class="php-keyword1">class</span>,
+
+    <span class="php-comment">// try|catch|finally</span>
+    LexerConst::T_TRY          =&gt; Extension\TTry\TTry::<span class="php-keyword1">class</span>,
+    LexerConst::T_CATCH        =&gt; Extension\TTry\TCatch::<span class="php-keyword1">class</span>,
+    LexerConst::T_FINALLY      =&gt; Extension\TTry\TFinally::<span class="php-keyword1">class</span>,
+    LexerConst::T_END_TRY      =&gt; Extension\TTry\TEndTry::<span class="php-keyword1">class</span>,
+
+]</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

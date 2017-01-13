@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Deimos\Flow\ForeachState</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Deimos.html">
+						Deimos<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Deimos.Flow.html">
+						Flow<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.html">
+						Extension<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TBlock.html">
+						TBlock					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TFor.html">
+						TFor					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TForeach.html">
+						TForeach					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TIF.html">
+						TIF					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TLiteral.html">
+						TLiteral					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TPHP.html">
+						TPHP					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TSimple.html">
+						TSimple					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TTry.html">
+						TTry					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Deimos.Flow.Extension.TWhile.html">
+						TWhile					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Deimos.Flow.Traits.html">
+						Traits					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Deimos.Flow.Block.html">Block</a></li>
+				<li><a href="class-Deimos.Flow.Configure.html">Configure</a></li>
+				<li><a href="class-Deimos.Flow.DefaultConfig.html">DefaultConfig</a></li>
+				<li><a href="class-Deimos.Flow.DefaultContainer.html">DefaultContainer</a></li>
+				<li><a href="class-Deimos.Flow.Flow.html">Flow</a></li>
+				<li><a href="class-Deimos.Flow.FlowForeach.html">FlowForeach</a></li>
+				<li><a href="class-Deimos.Flow.FlowFunction.html">FlowFunction</a></li>
+				<li class="active"><a href="class-Deimos.Flow.ForeachState.html">ForeachState</a></li>
+				<li><a href="class-Deimos.Flow.Lexer.html">Lexer</a></li>
+				<li><a href="class-Deimos.Flow.LexerConst.html">LexerConst</a></li>
+				<li><a href="class-Deimos.Flow.Tokenizer.html">Tokenizer</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Deimos.Flow.html" title="Summary of Deimos\Flow"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ForeachState</h1>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Deimos.html">Deimos</a>\<a href="namespace-Deimos.Flow.html">Flow</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Deimos.Flow.ForeachState.html#5-209" title="Go to source code">Flow/ForeachState.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#38-56" title="Go to source code">__construct</a>( <span>array <var>&amp; $storage</var></span> )</code>
+
+		<div class="description short">
+			<p>State constructor.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>State constructor.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$storage</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__get" id="___get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___get">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#58-66" title="Go to source code">__get</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__set" id="___set">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___set">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#68-77" title="Go to source code">__set</a>( <span> <var>$name</var></span>, <span> <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd></dd>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-BadFunctionCallException.html">BadFunctionCallException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__isset" id="___isset">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___isset">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#79-87" title="Go to source code">__isset</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="odd" id="_odd">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_odd">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#89-95" title="Go to source code">odd</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="even" id="_even">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_even">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#97-103" title="Go to source code">even</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isFirst" id="_isFirst">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isFirst">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#105-111" title="Go to source code">isFirst</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="first" id="_first">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_first">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#113-119" title="Go to source code">first</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isLast" id="_isLast">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isLast">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#121-127" title="Go to source code">isLast</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="last" id="_last">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_last">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#129-135" title="Go to source code">last</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="iteration" id="_iteration">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_iteration">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#137-143" title="Go to source code">iteration</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="key" id="_key">
+
+		<td class="attributes"><code>
+			 public 
+
+			string|integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_key">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#145-151" title="Go to source code">key</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string|integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="value" id="_value">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_value">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#153-159" title="Go to source code">value</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="firstKey" id="_firstKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			string|integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_firstKey">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#161-167" title="Go to source code">firstKey</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string|integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="lastKey" id="_lastKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			string|integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_lastKey">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#169-175" title="Go to source code">lastKey</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string|integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="firstValue" id="_firstValue">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_firstValue">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#177-183" title="Go to source code">firstValue</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="lastValue" id="_lastValue">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_lastValue">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#185-191" title="Go to source code">lastValue</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="total" id="_total">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_total">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#193-199" title="Go to source code">total</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__invoke" id="___invoke">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___invoke">#</a>
+		<code><a href="source-class-Deimos.Flow.ForeachState.html#201-207" title="Go to source code">__invoke</a>( <span> <var>$key</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="_iteration" id="$_iteration">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Deimos.Flow.ForeachState.html#8-11" title="Go to source code"><var>$_iteration</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_iteration" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_key" id="$_key">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Deimos.Flow.ForeachState.html#13-16" title="Go to source code"><var>$_key</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_key" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_firstKey" id="$_firstKey">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Deimos.Flow.ForeachState.html#18-21" title="Go to source code"><var>$_firstKey</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_firstKey" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_lastKey" id="$_lastKey">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Deimos.Flow.ForeachState.html#23-26" title="Go to source code"><var>$_lastKey</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_lastKey" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_total" id="$_total">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Deimos.Flow.ForeachState.html#28-31" title="Go to source code"><var>$_total</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_total" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="storage" id="$storage">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Deimos.Flow.ForeachState.html#33-36" title="Go to source code"><var>$storage</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$storage" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
