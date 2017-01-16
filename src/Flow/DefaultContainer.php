@@ -24,6 +24,8 @@ class DefaultContainer extends DI
      *
      * @param DefaultConfig $config
      * @param Helper|null   $helper
+     *
+     * @throws \InvalidArgumentException
      */
     public function __construct(DefaultConfig $config = null, Helper $helper = null)
     {
@@ -49,10 +51,10 @@ class DefaultContainer extends DI
     {
         foreach ($this->config->configStorage() as $callbackName => $callable)
         {
-            $this->addCallback($callbackName, $callable);
+            $this->callback($callbackName, $callable);
         }
 
-        $this->addCallback('json_encode', function (array $storage = null)
+        $this->callback('json_encode', function (array $storage = null)
         {
             if (!$storage)
             {

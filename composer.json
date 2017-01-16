@@ -9,8 +9,8 @@
   ],
   "require": {
     "php": "^5.5 || ^7.0",
-    "deimos/di": "~0.0",
-    "deimos/helper": "~0.1"
+    "deimos/di": "~0.1",
+    "deimos/helper": "~0.3"
   },
   "autoload": {
     "psr-4": {

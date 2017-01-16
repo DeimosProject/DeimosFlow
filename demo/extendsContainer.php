@@ -15,7 +15,7 @@ class DI extends \Deimos\Flow\DefaultContainer
     {
         parent::configure();
 
-        $this->addCallback('length', function ($storage)
+        $this->callback('length', function ($storage)
         {
             return mt_rand();
         });
