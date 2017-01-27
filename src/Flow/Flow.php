@@ -174,7 +174,7 @@ class Flow
      */
     protected function removeComments($view)
     {
-        return preg_replace('~{*(.*?)\*}([\s]+)?~', '', $view);
+        return preg_replace('~{\*\X*?\*}~u', '', $view);
     }
 
     /**
