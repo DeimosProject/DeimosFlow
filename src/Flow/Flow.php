@@ -191,9 +191,14 @@ class Flow
         return preg_replace('~(\?>)~', ' -->', $view);
     }
 
+    /**
+     * @param string $view
+     *
+     * @return mixed
+     */
     protected function literal($view)
     {
-        return preg_replace_callback('~{literal\s*}((\n|.)*){/literal}~', function ($matches)
+        return preg_replace_callback('~{literal}(\X+){\/literal}~mu', function ($matches)
         {
             $literal = new Extension\TLiteral\TLiteral($this, $this->configure, [$matches[1]]);
 
@@ -388,7 +393,7 @@ class Flow
         foreach (${'____extends' . $rand} as ${'____extend' . $rand})
         {
             ${'____result' . $rand} = (new static($this->configure))
-                ->render(${'____extend' . $rand}) . ${'____result' . $rand};
+                    ->render(${'____extend' . $rand}) . ${'____result' . $rand};
         }
 
         return ${'____result' . $rand};
