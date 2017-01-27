@@ -44,7 +44,7 @@ abstract class FlowFunction
      */
     protected function variable($variable)
     {
-        $variable = preg_replace('~(\$)(\X*)\.([\w-_]+)~', '$1$2[\'$3\']', $variable);
+        $variable = preg_replace('~(\$)(.*)\.([\w-_]+)~', '$1$2[\'$3\']', $variable);
 
         return trim($variable, '"\' ');
     }
