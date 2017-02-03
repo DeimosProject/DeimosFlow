@@ -198,7 +198,7 @@ class Flow
      */
     protected function literal($view)
     {
-        return preg_replace_callback('~{literal}(\X+){\/literal}~mu', function ($matches)
+        return preg_replace_callback('~{literal}(\X+?){\/literal}~mu', function ($matches)
         {
             $literal = new Extension\TLiteral\TLiteral($this, $this->configure, [$matches[1]]);
 
