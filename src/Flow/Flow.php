@@ -254,6 +254,18 @@ class Flow
         return $this->replace($command, $data, $text, 1);
     }
 
+    protected function _compile(&$to, $compile = null)
+    {
+        foreach ($this->lexer($compile ?: $to) as $command)
+        {
+            $to = $this->replaceOne(
+                '{' . $command . '}',
+                $this->token($command),
+                $to
+            );
+        }
+    }
+
     /**
      * @return mixed|string
      *
@@ -265,14 +277,14 @@ class Flow
         $compile = $this->removePhpTags($compile);
         $compile = $this->literal($compile);
 
-        foreach ($this->lexer($compile) as $command)
+        preg_match_all('~"(\X+?)"~', $compile, $matches);
+
+        foreach ($matches[1] as $match)
         {
-            $compile = $this->replaceOne(
-                '{' . $command . '}',
-                $this->token($command),
-                $compile
-            );
+            $this->_compile($compile, $match);
         }
+
+        $this->_compile($compile);
 
         return $compile;
     }
