@@ -279,12 +279,12 @@ class Flow
 
         preg_match_all('~"(\X+?)"~', $compile, $matches);
 
+        $this->_compile($compile);
+
         foreach ($matches[1] as $match)
         {
             $this->_compile($compile, $match);
         }
-
-        $this->_compile($compile);
 
         return $compile;
     }

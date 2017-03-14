@@ -96,16 +96,20 @@ class TVariable extends FlowFunction
         }
         else
         {
-            foreach ($this->attributes as $key => $value)
+            $attributes = array_merge([$variable], $this->attributes);
+
+            foreach ($attributes as $key => $value)
             {
+                $attributes[$key] = str_replace('\'', '"', $attributes[$key]);
+
                 if (preg_match('~^(?<a>[\'"])\X*(\k<a>)$~', $value, $match))
                 {
-                    $this->attributes[$key] = mb_substr($value, 1, -1);
+                    $attributes[$key] = mb_substr($value, 1, -1);
                 }
             }
 
             $storage = '$this->configure->di()->call(\'' . $callback . '\', ';
-            $export  = var_export(array_merge([$variable], $this->attributes), true);
+            $export     = var_export($attributes, true);
             $regExp  = sprintf('~\'(%s)\'~', self::REGEXP_VARIABLE);
             $export  = preg_replace($regExp, '$1', $export);
             $export  = preg_replace('~\'(-?[\d\.]+)\'~', '$1', $export);
