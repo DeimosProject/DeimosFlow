@@ -2,22 +2,22 @@
 <html>
     <head>
         {$object|var_dump}
-        {$object->hello|var_dump:my:name}
+        {$object->hello|var_dump:'my':'name'}
         <?php echo $title; ?>
         {*<title>{$title|_}</title>*}
-        {assign names ["Bob", "Max"]}
+        {assign names ['Bob', 'Max']}
         <title>{$title|default:'Not title'}</title>
         <script src="/js/helper-{$id|default:'5'}.js"></script>
-        <script src='/js/helper-{$id}.js'></script>
+        <script src="/js/helper-{$id}.js"></script>
         <script>
             'use strict';
 
             var storage = {$storage|json_encode};
         </script>
     </head>
-    <body class="{$classBody}">
+    <body class="{$classBody|default:'red'}">
 
-        <h1>{block "hello" prepend}Hello {/block}</h1>
+        <h1>{block 'hello' prepend}Hello {/block}</h1>
 
         {$content}
 
@@ -39,8 +39,8 @@
 
         <p>total: {$this->foreach->foo->total}</p>
 
-        {include "ux/content"}
-        {partial "ux/content.tpl"}
+        {include 'ux/content'}
+        {partial 'ux/content.tpl'}
 
     </body>
 </html>

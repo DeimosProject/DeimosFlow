@@ -11,7 +11,7 @@
         </script>
     </head>
     {assign classBody 'mySelf'}
-    <body class="{$classBody|default:"classBody"}">
+    <body class="{$classBody|default:'classBody'}">
 
         <h1>{block "hello" prepend}Hello {/block}</h1>
 

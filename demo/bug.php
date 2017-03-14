@@ -11,8 +11,7 @@ $configure->template(dirname(__DIR__) . '/view');
 
 $flow = new Deimos\Flow\Flow($configure);
 
-$flow->content = 'Have fun code!';
+$flow->assign('content', 'Have fun code!');
 $flow->storage = range(1, 5);
-$flow->object = (object)['hello' => 'world'];
 
-echo $flow->render('admin/state');
+echo $flow->render('admin/bug');
