@@ -36,6 +36,16 @@ class Flow
     public $foreach;
 
     /**
+     * @var array
+     */
+    protected $literals = [];
+
+    /**
+     * @var array
+     */
+    protected $quotes   = [];
+
+    /**
      * Flow constructor.
      *
      * @param Configure $configure
@@ -202,7 +212,16 @@ class Flow
         {
             $literal = new Extension\TLiteral\TLiteral($this, $this->configure, [$matches[1]]);
 
-            return $literal->view();
+            $ind = count($this->literals);
+            $key = '<!-- literal ' .
+                $ind . '-' .
+                hash('sha256', random_int(PHP_INT_MIN, PHP_INT_MAX)) .
+                ' -->';
+
+            $this->literals[$key] = $literal->view();
+
+            return $key;
+
         }, $view);
     }
 
@@ -254,6 +273,10 @@ class Flow
         return $this->replace($command, $data, $text, 1);
     }
 
+    /**
+     * @param string $to
+     * @param null   $compile
+     */
     protected function _compile(&$to, $compile = null)
     {
         foreach ($this->lexer($compile ?: $to) as $command)
@@ -263,6 +286,18 @@ class Flow
                 $this->token($command),
                 $to
             );
+        }
+    }
+
+    /**
+     * @param array  $table
+     * @param string $view
+     */
+    protected function patcher($table, &$view)
+    {
+        foreach ($table as $key => $literal)
+        {
+            $view = str_replace($key, $literal, $view);
         }
     }
 
@@ -285,6 +320,9 @@ class Flow
         {
             $this->_compile($compile, $match);
         }
+
+        $this->patcher($this->literals, $compile);
+//        $this->patcher($this->quotes, $compile); fixme: quotes
 
         return $compile;
     }
