@@ -295,9 +295,9 @@ class Flow
      */
     protected function patcher(&$table, &$view)
     {
-        foreach ($table as $key => $literal)
+        foreach ($table as $key => $value)
         {
-            $view = str_replace($key, $literal, $view);
+            $view = str_replace($key, $value, $view);
         }
 
         $table = [];
