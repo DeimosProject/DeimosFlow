@@ -293,11 +293,37 @@ class Flow
      * @param array  $table
      * @param string $view
      */
-    protected function patcher($table, &$view)
+    protected function patcher(&$table, &$view)
     {
         foreach ($table as $key => $literal)
         {
             $view = str_replace($key, $literal, $view);
+        }
+
+        $table = [];
+    }
+
+    /**
+     * @param string $view
+     * @param array  $matches
+     */
+    protected function quotePatcher(&$view, array $matches)
+    {
+        foreach ($matches as $match)
+        {
+            $view = preg_replace_callback($this->quote($match), function () use ($match)
+            {
+                $ind = count($this->quotes);
+                $key = '<!-- quotes ' .
+                    $ind . '-' .
+                    hash('sha256', random_int(PHP_INT_MIN, PHP_INT_MAX)) .
+                    ' -->';
+
+                $this->quotes[$key] = $match;
+                $this->_compile($this->quotes[$key]);
+
+                return $key;
+            }, $view, 1);
         }
     }
 
@@ -313,16 +339,12 @@ class Flow
         $compile = $this->literal($compile);
 
         preg_match_all('~"(\X+?)"~', $compile, $matches);
+        $this->quotePatcher($compile, $matches[1]);
 
         $this->_compile($compile);
 
-        foreach ($matches[1] as $match)
-        {
-            $this->_compile($compile, $match);
-        }
-
         $this->patcher($this->literals, $compile);
-//        $this->patcher($this->quotes, $compile); fixme: quotes
+        $this->patcher($this->quotes, $compile);
 
         return $compile;
     }
