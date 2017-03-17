@@ -1,9 +1,9 @@
 <!DOCTYPE>
 <html>
 <head>
-    <title>{printBlock 'title'}</title>
+    <title>{block title}{/block}</title>
 </head>
 <body>
-    {printBlock 'content'}
+    {block content}{/block}
 </body>
 </html>

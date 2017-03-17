@@ -5,6 +5,8 @@ namespace Deimos\Flow;
 class Flow
 {
 
+    const VERSION = '1.0.0.6';
+
     /**
      * @var Configure
      */
@@ -398,9 +400,14 @@ class Flow
     {
         $this->view($view);
 
+        $viewPathMTime = max(
+            filemtime($this->viewPath),
+            filemtime(__FILE__)
+        );
+
         if ($this->configure->isDebug() ||
             !file_exists($this->cachePath()) ||
-            filemtime($this->viewPath) > filemtime($this->cachePath())
+            $viewPathMTime > filemtime($this->cachePath())
         )
         {
             $this->saveCache();
