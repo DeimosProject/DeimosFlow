@@ -5,7 +5,7 @@ namespace Deimos\Flow;
 class Flow
 {
 
-    const VERSION = '1.0.0.6';
+    const VERSION = '1.0.0.7';
 
     /**
      * @var Configure
@@ -321,8 +321,10 @@ class Flow
                     hash('sha256', random_int(PHP_INT_MIN, PHP_INT_MAX)) .
                     ' -->';
 
-                $this->quotes[$key] = $match;
+                $this->quotes[$key] = substr($match, 1, -1);
                 $this->_compile($this->quotes[$key]);
+
+                $this->quotes[$key] = '"' . $this->quotes[$key] . '"';
 
                 return $key;
             }, $view, 1);
@@ -340,7 +342,7 @@ class Flow
         $compile = $this->removePhpTags($compile);
         $compile = $this->literal($compile);
 
-        preg_match_all('~"(\X+?)"~', $compile, $matches);
+        preg_match_all('~("[^"]+")~', $compile, $matches);
         $this->quotePatcher($compile, $matches[1]);
 
         $this->_compile($compile);
