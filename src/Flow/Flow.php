@@ -5,7 +5,7 @@ namespace Deimos\Flow;
 class Flow
 {
 
-    const VERSION = '1.0.8.1';
+    const VERSION = '1.0.8.2';
 
     /**
      * @var Configure
@@ -351,7 +351,7 @@ class Flow
         $compile = $this->removePhpTags($compile);
         $compile = $this->literal($compile);
 
-        preg_match_all('~("[^"]+")~', $compile, $matches);
+        preg_match_all('~("[^"\n]+")~', $compile, $matches);
         $this->quotePatcher($compile, $matches[1]);
 
         $this->_compile($compile);
