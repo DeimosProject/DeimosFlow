@@ -321,10 +321,19 @@ class Flow
                     hash('sha256', random_int(PHP_INT_MIN, PHP_INT_MAX)) .
                     ' -->';
 
-                $this->quotes[$key] = substr($match, 1, -1);
+                $result = $match{1} !== '$';
+                $this->quotes[$key] = $match;
+                if ($result)
+                {
+                    $this->quotes[$key] = substr($this->quotes[$key], 1, -1);
+                }
+
                 $this->_compile($this->quotes[$key]);
 
-                $this->quotes[$key] = '"' . $this->quotes[$key] . '"';
+                if ($result)
+                {
+                    $this->quotes[$key] = '"' . $this->quotes[$key] . '"';
+                }
 
                 return $key;
             }, $view, 1);
