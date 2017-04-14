@@ -319,28 +319,20 @@ class Flow
                 {
                     return $match;
                 }
-                
+
                 $ind = count($this->quotes);
                 $key = '<!-- quotes ' .
                     $ind . '-' .
                     hash('sha256', random_int(PHP_INT_MIN, PHP_INT_MAX)) .
                     ' -->';
 
-                $result = $match{1} !== '$';
                 $this->quotes[$key] = $match;
                 $this->quotes[$key] = str_replace('//', '\\/\\/', $this->quotes[$key]);
-                if ($result)
-                {
-                    $this->quotes[$key] = substr($this->quotes[$key], 1, -1);
-                }
+                $this->quotes[$key] = substr($this->quotes[$key], 1, -1);
 
                 $this->_compile($this->quotes[$key]);
 
-                if ($result)
-                {
-                    $this->quotes[$key] = '"' . $this->quotes[$key] . '"';
-                }
-
+                $this->quotes[$key] = '"' . $this->quotes[$key] . '"';
                 $this->quotes[$key] = str_replace('\\/\\/', '//', $this->quotes[$key]);
 
                 return $key;
