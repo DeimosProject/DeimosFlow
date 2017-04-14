@@ -5,7 +5,7 @@ namespace Deimos\Flow;
 class Flow
 {
 
-    const VERSION = '1.0.8';
+    const VERSION = '1.0.8.1';
 
     /**
      * @var Configure
@@ -315,6 +315,11 @@ class Flow
         {
             $view = preg_replace_callback($this->quote($match), function () use ($match)
             {
+                if (strlen($match) < 6)
+                {
+                    return $match;
+                }
+                
                 $ind = count($this->quotes);
                 $key = '<!-- quotes ' .
                     $ind . '-' .
@@ -323,6 +328,7 @@ class Flow
 
                 $result = $match{1} !== '$';
                 $this->quotes[$key] = $match;
+                $this->quotes[$key] = str_replace('//', '\\/\\/', $this->quotes[$key]);
                 if ($result)
                 {
                     $this->quotes[$key] = substr($this->quotes[$key], 1, -1);
@@ -334,6 +340,8 @@ class Flow
                 {
                     $this->quotes[$key] = '"' . $this->quotes[$key] . '"';
                 }
+
+                $this->quotes[$key] = str_replace('\\/\\/', '//', $this->quotes[$key]);
 
                 return $key;
             }, $view, 1);
