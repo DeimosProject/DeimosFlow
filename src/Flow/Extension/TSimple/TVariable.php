@@ -85,7 +85,7 @@ class TVariable extends FlowFunction
             $callback = 'escape';
         }
 
-        if ($isDefault && $variable{0} === '$')
+        if ($isDefault && !empty($variable) && $variable{0} === '$')
         {
             $storage = sprintf(
                 '(empty(%s)?$this->configure->di()->escape(%s):$this->configure->di()->escape(%s))',
