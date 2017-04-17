@@ -5,7 +5,7 @@ namespace Deimos\Flow;
 class Flow
 {
 
-    const VERSION = '1.0.8.5';
+    const VERSION = '1.0.8.6';
 
     /**
      * @var Configure
@@ -359,10 +359,18 @@ class Flow
         preg_match_all('~("[^"\n]+")~', $compile, $matches);
         $this->quotePatcher($compile, $matches[1]);
 
+        $stack = [];
+        $compile = preg_replace_callback('~\>\X*?([\'"])\X*?\<~', function ($matches) use (&$stack) {
+            $key = 'qq_' . hash('sha512', $matches[0]);
+            $stack[$key] = $matches[1];
+            return str_replace($matches[1], $key, $matches[0]);
+        }, $compile);
+
         $this->_compile($compile);
 
         $this->patcher($this->literals, $compile);
         $this->patcher($this->quotes, $compile);
+        $this->patcher($stack, $compile);
 
         return $compile;
     }
