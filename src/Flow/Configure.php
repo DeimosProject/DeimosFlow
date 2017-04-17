@@ -3,6 +3,7 @@
 namespace Deimos\Flow;
 
 use Deimos\DI\DI;
+use Deimos\Helper\Exceptions\NotFound;
 
 class Configure
 {
@@ -18,6 +19,11 @@ class Configure
      * @var string
      */
     protected $template;
+
+    /**
+     * @var array
+     */
+    protected $resources = [];
 
     /**
      * @var Tokenizer
@@ -176,7 +182,16 @@ class Configure
      */
     public function getFile($path)
     {
-        $fullPath = $this->template() . $path;
+        $result   = explode(':', $path, 2);
+        $template = $this->template();
+
+        if (count($result) === 2)
+        {
+            $path     = $this->getResource($result[0]) . $result[1];
+            $template = null;
+        }
+
+        $fullPath = $template . $path;
 
         if (file_exists($fullPath))
         {
@@ -281,6 +296,28 @@ class Configure
         }
 
         return $this->template;
+    }
+
+    public function addResource($name, $path)
+    {
+        $this->resources[$name] = realpath($path) . '/';
+
+        if (!realpath($path))
+        {
+            throw new NotFound('Path `' . $path . '` not found');
+        }
+
+        return $this;
+    }
+
+    public function getResource($name)
+    {
+        if (!isset($this->resources[$name]))
+        {
+            throw new NotFound('Resource not found');
+        }
+
+        return $this->resources[$name];
     }
 
     /**

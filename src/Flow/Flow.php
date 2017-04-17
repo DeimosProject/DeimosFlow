@@ -92,18 +92,27 @@ class Flow
     }
 
     /**
-     * @param string $view
+     * @param string $path
      *
      * @return string
      *
      * @throws \InvalidArgumentException
      */
-    protected function view($view = null)
+    protected function view($path = null)
     {
         if (!$this->view)
         {
-            $this->view     = preg_replace('~(\.tpl)$~', '', $view);
-            $this->viewPath = $this->configure->template() . $this->view . $this->configure->ext();
+            $result   = explode(':', $path, 2);
+            $template = $this->configure->template();
+
+            if (count($result) === 2)
+            {
+                $path     = $this->configure->getResource($result[0]) . $result[1];
+                $template = null;
+            }
+
+            $this->view     = preg_replace('~(\.tpl)$~', '', $path);
+            $this->viewPath = $template . $this->view . $this->configure->ext();
         }
 
         return $this->view;
@@ -127,7 +136,9 @@ class Flow
         if (!$this->cachePath)
         {
             $compile   = $this->configure->compile();
-            $pathCache = $compile . dirname($this->view());
+            $view      = $this->view();
+            $view      = preg_replace('~^' . $this->configure->template() . '~', '', $view);
+            $pathCache = $compile . dirname($view);
             $path      = $this->configure->createDirectory($pathCache);
 
             $this->cachePath = $path . basename($this->view()) . '.php';
