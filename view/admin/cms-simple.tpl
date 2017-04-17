@@ -24,7 +24,7 @@
 
         {'Flow Template!'|substr:0:-2}
 
-        {*{$array.hello|default:'My Self'}*}
+        {$array.hello|default:'My Self'}
         <h3>{$hello|default:'test'}</h3>
 
         <?php foreach ($storage as $item): ?>

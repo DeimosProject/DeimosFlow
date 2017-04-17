@@ -5,7 +5,7 @@ namespace Deimos\Flow;
 class Flow
 {
 
-    const VERSION = '1.0.8.2';
+    const VERSION = '1.0.8.5';
 
     /**
      * @var Configure
@@ -226,10 +226,7 @@ class Flow
             $literal = new Extension\TLiteral\TLiteral($this, $this->configure, [$matches[1]]);
 
             $ind = count($this->literals);
-            $key = '<!-- literal ' .
-                $ind . '-' .
-                hash('sha256', random_int(PHP_INT_MIN, PHP_INT_MAX)) .
-                ' -->';
+            $key = '$literal_' . $ind . '_' . hash('sha256', random_int(PHP_INT_MIN, PHP_INT_MAX));
 
             $this->literals[$key] = $literal->view();
 
@@ -332,10 +329,7 @@ class Flow
                 }
 
                 $ind = count($this->quotes);
-                $key = '<!-- quotes ' .
-                    $ind . '-' .
-                    hash('sha256', random_int(PHP_INT_MIN, PHP_INT_MAX)) .
-                    ' -->';
+                $key = '$quotes_' . $ind . '_' . hash('sha256', random_int(PHP_INT_MIN, PHP_INT_MAX));
 
                 $this->quotes[$key] = $match;
                 $this->quotes[$key] = str_replace('//', '\\/\\/', $this->quotes[$key]);
