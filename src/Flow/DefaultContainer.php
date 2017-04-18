@@ -64,6 +64,11 @@ class DefaultContainer extends DI
             return $this->json()->encode($storage);
         });
 
+        $this->callback('truncate', function ($string, $length = 80, $end = '&#8230;')
+        {
+            return $this->helper->str()->shorten($string, $length, $end);
+        });
+
         $this->build('arr', function ()
         {
             return $this->helper->arr();
