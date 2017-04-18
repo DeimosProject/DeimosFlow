@@ -5,7 +5,7 @@ namespace Deimos\Flow;
 class Flow
 {
 
-    const VERSION = '1.0.8.6';
+    const VERSION = '1.0.8.7';
 
     /**
      * @var Configure
